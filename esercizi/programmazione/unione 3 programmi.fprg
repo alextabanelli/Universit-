@@ -1,0 +1,124 @@
+<?xml version="1.0"?>
+<flowgorithm fileversion="3.0">
+    <attributes>
+        <attribute name="name" value=""/>
+        <attribute name="authors" value="Alex"/>
+        <attribute name="about" value=""/>
+        <attribute name="saved" value="2023-09-20 08:51:56 "/>
+        <attribute name="created" value="QWxleDtXMTE7MjAyMy0wOS0xOTsiMDg6NDY6MzQgIjsxNzg1"/>
+        <attribute name="edited" value="QWxleDtXMTE7MjAyMy0wOS0yMDsiMDg6NDU6MTUgIjsxO0FsZXg7VzExOzIwMjMtMDktMTk7IjA4OjQ2OjM0ICI7dmFsb3JlIG1lZGlvIDMgbnVtZXJpLmZwcmc7NjI0MQ=="/>
+        <attribute name="edited" value="QWxleDtXMTE7MjAyMy0wOS0yMDsiMDg6NDY6MjggIjsxO0FsZXg7VzExOzIwMjMtMDktMTk7IjA4OjQ2OjM0ICI7dmFsb3JlIG1hc3NpbW8gMyBudW1lcmkuZnByZzs2NDgx"/>
+        <attribute name="edited" value="QWxleDtXMTE7MjAyMy0wOS0yMDsiMDg6NDc6NDIgIjsxO0FsZXg7VzExOzIwMjMtMDktMTk7IjA4OjQ2OjM0ICI7dmFsb3JlIHBpw7kgdmljaW5vIGFsbGEgbWVkaWEgZGkgbiBudW1lcmkuZnByZzs4MTQ1"/>
+        <attribute name="edited" value="QWxleDtXMTE7MjAyMy0wOS0yMDsiMDg6NTE6NTYgIjs2OzE4OTA="/>
+    </attributes>
+    <function name="Main" type="None" variable="">
+        <parameters/>
+        <body>
+            <declare name="t, s, m, massimo, media, somma, vvm" type="Real" array="False" size=""/>
+            <declare name="n, i, p" type="Integer" array="False" size=""/>
+            <output expression="&quot;Che programma vuoi svolgere?&quot;" newline="True"/>
+            <input variable="p"/>
+            <if expression="p=1">
+                <then>
+                    <output expression="&quot;Media di 3 valori&quot;" newline="True"/>
+                    <output expression="&quot;Dammi il primo numero &quot;" newline="False"/>
+                    <input variable="t"/>
+                    <output expression="&quot;Dammi il secondo numero &quot;" newline="False"/>
+                    <input variable="s"/>
+                    <output expression="&quot;Dammi il terzo numero &quot;" newline="False"/>
+                    <input variable="m"/>
+                    <assign variable="media" expression="(t+s+m)/3"/>
+                    <output expression="&quot;La media vale &quot;" newline="False"/>
+                    <output expression="media" newline="True"/>
+                </then>
+                <else>
+                    <if expression="p=2">
+                        <then>
+                            <output expression="&quot;Massimo di 3 valori&quot;" newline="True"/>
+                            <output expression="&quot;Dammi il primo numero &quot;" newline="False"/>
+                            <input variable="t"/>
+                            <output expression="&quot;Dammi il secondo numero &quot;" newline="False"/>
+                            <input variable="s"/>
+                            <output expression="&quot;Dammi il terzo numero &quot;" newline="False"/>
+                            <input variable="m"/>
+                            <if expression="t&gt;m">
+                                <then>
+                                    <if expression="n&gt;s">
+                                        <then>
+                                            <assign variable="massimo" expression="t"/>
+                                        </then>
+                                        <else>
+                                            <assign variable="massimo" expression="s"/>
+                                        </else>
+                                    </if>
+                                </then>
+                                <else>
+                                    <if expression="m&gt;s">
+                                        <then>
+                                            <assign variable="massimo" expression="m"/>
+                                        </then>
+                                        <else>
+                                            <assign variable="massimo" expression="s"/>
+                                        </else>
+                                    </if>
+                                </else>
+                            </if>
+                            <output expression="&quot;Il massimo vale &quot;" newline="False"/>
+                            <output expression="massimo" newline="True"/>
+                        </then>
+                        <else>
+                            <if expression="p=3">
+                                <then/>
+                                <else>
+                                    <if expression="p=4">
+                                        <then>
+                                            <output expression="&quot;Valore piu' vicino alla media di n valori&quot;" newline="True"/>
+                                            <output expression="&quot;Quanti numeri vuoi inserire nel programma?&quot;" newline="True"/>
+                                            <input variable="n"/>
+                                            <declare name="gianni, conf" type="Real" array="True" size="n"/>
+                                            <assign variable="somma" expression="0"/>
+                                            <for variable="i" start="0" end="n-1" direction="inc" step="1">
+                                                <output expression="&quot;Dammi il  numero &quot;" newline="False"/>
+                                                <output expression="i+1" newline="True"/>
+                                                <input variable="gianni[i]"/>
+                                                <assign variable="somma" expression="somma+gianni[i]"/>
+                                            </for>
+                                            <assign variable="media" expression="somma/n"/>
+                                            <for variable="i" start="0" end="n-1" direction="inc" step="1">
+                                                <assign variable="conf[i]" expression="media-gianni[i]"/>
+                                                <if expression="i=0">
+                                                    <then>
+                                                        <assign variable="vvm" expression="gianni[i]"/>
+                                                    </then>
+                                                    <else>
+                                                        <if expression="conf[i]&lt;0">
+                                                            <then>
+                                                                <assign variable="conf[i]" expression="conf[i]*(-1)"/>
+                                                            </then>
+                                                            <else/>
+                                                        </if>
+                                                        <if expression="conf[i]&lt;conf[i-1]">
+                                                            <then>
+                                                                <assign variable="vvm" expression="gianni[i]"/>
+                                                            </then>
+                                                            <else/>
+                                                        </if>
+                                                    </else>
+                                                </if>
+                                            </for>
+                                            <output expression="&quot;Valore medio &quot;" newline="False"/>
+                                            <output expression="media" newline="True"/>
+                                            <output expression="&quot;Il valore pi&#249; vicino alla media vale &quot;" newline="False"/>
+                                            <output expression="vvm" newline="True"/>
+                                        </then>
+                                        <else/>
+                                    </if>
+                                </else>
+                            </if>
+                        </else>
+                    </if>
+                </else>
+            </if>
+        </body>
+    </function>
+</flowgorithm>

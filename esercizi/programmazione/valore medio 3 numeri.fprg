@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<flowgorithm fileversion="3.0">
+    <attributes>
+        <attribute name="name" value=""/>
+        <attribute name="authors" value="Alex"/>
+        <attribute name="about" value=""/>
+        <attribute name="saved" value="2023-09-19 08:51:08 "/>
+        <attribute name="created" value="QWxleDtXMTE7MjAyMy0wOS0xOTsiMDg6NDY6MzQgIjsxNzg1"/>
+        <attribute name="edited" value="QWxleDtXMTE7MjAyMy0wOS0xOTsiMDg6NTE6MDggIjsyOzE4OTE="/>
+    </attributes>
+    <function name="Main" type="None" variable="">
+        <parameters/>
+        <body>
+            <declare name="n, s, m, media" type="Real" array="False" size=""/>
+            <output expression="&quot;Dammi il primo numero &quot;" newline="False"/>
+            <input variable="n"/>
+            <output expression="&quot;Dammi il secondo numero &quot;" newline="False"/>
+            <input variable="s"/>
+            <output expression="&quot;Dammi il terzo numero &quot;" newline="False"/>
+            <input variable="m"/>
+            <assign variable="media" expression="(n+s+m)/3"/>
+            <output expression="&quot;La media vale &quot;" newline="False"/>
+            <output expression="media" newline="True"/>
+        </body>
+    </function>
+</flowgorithm>

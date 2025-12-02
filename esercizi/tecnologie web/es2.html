@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Box Model & Spacing — Playground</title>
+  <style>
+/* === Regole base (candidati alla cascata) === */
+:root { --primary: #3b82f6; --secondary: #64748b; --surface: #f8fafc; }
+
+body {
+  font-family: system-ui, sans-serif;
+  background: var(--surface);
+  color: #111827;
+  margin: 0;
+  padding: 20px;
+}
+
+/* === Stili per le box multiple === */
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.box {
+  background-color: #dbeafe;
+  border: 3px solid var(--primary);
+  width: 250px;
+  height: 120px;
+  margin: 20px 0;
+  padding: 15px;
+}
+
+.box.alt {
+  background-color: #f1f5f9;
+  border: 3px solid var(--secondary);
+  width: 250px;
+  height: 120px;
+}
+
+.box.special {
+  background-color: #fef3c7;
+  border: 3px solid #f59e0b;
+  width: 250px;
+  height: 120px;
+}
+
+.box.highlight {
+  background-color: #fce7f3;
+  border: 3px solid #ec4899;
+  width: 250px;
+  height: 120px;
+}
+
+/* Stili per elementi specifici */
+.demo-text { font-weight: bold; color: var(--primary); }
+.code-example { font-family: monospace; background: #f4f4f4; padding: 4px 8px; border-radius: 4px; }
+.important-note { color: #dc2626; font-weight: 600; }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h1>Esperimenti sul Box Model</h1>
+    <p>Puoi trovare la documentazione del <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Learn_web_development/Core/Styling_basics/Box_model">box model</a> e delle proprietà di <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Learn_web_development/Core/Styling_basics/Sizing">sizing</a> su MDN.</p>
+    
+    <section class="demo-section">
+      <h2>Box Base</h2>
+      <p>Questa è la <span class="demo-text">box principale</span> </p>
+      <div class="box principale">
+        Box principale
+      </div>
+    </section>
+
+    <section class="demo-section">
+      <h2>Box Alternative</h2>
+      <p>Osserva come i <span class="important-note">margini verticali</span> interagiscono tra box adiacenti.</p>
+      <div class="box alt">
+        Seconda box per confronto
+      </div>
+    </section>
+
+    <section class="demo-section">
+      <h2>Box Speciale</h2>
+      <p>Questa box serve per la modifica del bordo.</p>
+      <div class="box special">
+        Box con border-box
+      </div>
+    </section>
+
+    <section class="demo-section">
+      <h2>Box Evidenziata</h2>
+      <p>L'ultima box per sperimentare con <span class="demo-text">padding specifici</span> e margini personalizzati.</p>
+      <div class="box highlight">
+        Box finale per esperimenti
+      </div>
+    </section>
+  </div>
+
+  <style>
+/* === Area per i tuoi esperimenti durante gli esercizi === */
+
+/* ESERCIZIO-1: Modifica il padding della box principale
+   OBIETTIVO: Fai in modo che lo spazio tra il contenuto e il bordo sia di almeno 50px
+   in alto e in basso, mentre nella parte destra deve essere di 70px e a sinistra 30px.
+   
+    Questo spazio è quello tra il bordo della box e il contenuto al suo interno.
+    
+
+   Quali proprietà CSS useresti per ottenere questo risultato? */
+   .box.principale {
+    padding: 50px 70px 50px 30px; /* top, right, bottom, left */
+   }
+
+/* ESERCIZIO-2: Sperimenta con i margini della box alternativa
+   OBIETTIVO: Aggiungi uno spazio superiore di 40px e uno inferiore di 60px.
+   Osserva come i gli spazi verticali interagiscono con la box sopra e nota come si comporta
+   lo spazio effettivo tra gli elementi. Cosa succede se lo spazio è negativo (e.g., -400px)? 
+   
+   Questo spazio è quello tra il bordo della box e gli elementi adiacenti. Quali proprietà CSS useresti per ottenere questo risultato?
+   */
+    .box.alt {
+     margin: 40px 0 60px 0; /* top, right, bottom, left */
+    }
+
+/* ESERCIZIO-3: Modifica il bordo della box speciale
+   OBIETTIVO: Cambia il bordo della box speciale per avere uno spessore di 8px,
+   stile "dashed", e colore rosso. Osserva come il bordo influisce sulle
+   dimensioni totali dell'elemento */
+    .box.special {
+     border: 8px dashed red;
+    }
+
+/* ESERCIZIO-4: Crea effetti avanzati sulla box evidenziata
+   OBIETTIVO: Combina padding: 20px 40px 30px 15px (top, right, bottom, left),
+   margin: 25px, e border-radius: 15px
+   per creare un layout arrotondato e centrato */
+    .box.highlight {
+     padding: 20px 40px 30px 15px;
+     margin: 25px;
+     border-radius: 15px;
+    }
+
+/* ESERCIZIO-5: Modifica larghezza e altezza della box evidenziata
+   OBIETTIVO: Modifica il CSS qui sotto per cambiare altezza superiore a 300px e larghezza a 400px. Osserva come il contenuto si adatta alle nuove dimensioni */
+    .box.highlight {
+      width: 400px;
+      height: 300px;
+    }
+
+/* ESERCIZIO-6: Centra il testo all'interno di tutte le box
+   OBIETTIVO: Prova a centrare il testo orizzontalmente
+   e verticalmente all'interno di ogni box. Sperimenta con allineamento e padding */
+    .box {
+     text-align: center;     /* Centra il testo all'interno della box */
+    }
+
+/* ESERCIZIO bonus:
+  - https://developer.mozilla.org/en-US/docs/Learn_web_development/Core/Styling_basics/Test_your_skills/Box_model
+  - https://developer.mozilla.org/en-US/docs/Learn_web_development/Core/Styling_basics/Test_your_skills/Sizing */
+
+  </style>
+
+</body>
+</html>

@@ -1,0 +1,55 @@
+<?xml version="1.0"?>
+<flowgorithm fileversion="3.0">
+    <attributes>
+        <attribute name="name" value=""/>
+        <attribute name="authors" value="Alex"/>
+        <attribute name="about" value=""/>
+        <attribute name="saved" value="2023-09-19 03:47:41 "/>
+        <attribute name="created" value="QWxleDtXMTE7MjAyMy0wOS0xOTsiMDg6NDY6MzQgIjsxNzg1"/>
+        <attribute name="edited" value="QWxleDtXMTE7MjAyMy0wOS0xOTsiMDM6NDc6NDEgIjs3OzE4OTM="/>
+    </attributes>
+    <function name="Main" type="None" variable="">
+        <parameters/>
+        <body>
+            <declare name="n, i" type="Integer" array="False" size=""/>
+            <output expression="&quot;Quanti numeri vuoi inserire nel programma?&quot;" newline="True"/>
+            <input variable="n"/>
+            <declare name="gianni, conf" type="Real" array="True" size="n"/>
+            <declare name="somma, media, vvm" type="Real" array="False" size=""/>
+            <assign variable="somma" expression="0"/>
+            <for variable="i" start="0" end="n-1" direction="inc" step="1">
+                <output expression="&quot;Dammi il  numero &quot;" newline="False"/>
+                <output expression="i+1" newline="True"/>
+                <input variable="gianni[i]"/>
+                <assign variable="somma" expression="somma+gianni[i]"/>
+            </for>
+            <assign variable="media" expression="somma/n"/>
+            <for variable="i" start="0" end="n-1" direction="inc" step="1">
+                <assign variable="conf[i]" expression="media-gianni[i]"/>
+                <if expression="i=0">
+                    <then>
+                        <assign variable="vvm" expression="gianni[i]"/>
+                    </then>
+                    <else>
+                        <if expression="conf[i]&lt;0">
+                            <then>
+                                <assign variable="conf[i]" expression="conf[i]*(-1)"/>
+                            </then>
+                            <else/>
+                        </if>
+                        <if expression="conf[i]&lt;conf[i-1]">
+                            <then>
+                                <assign variable="vvm" expression="gianni[i]"/>
+                            </then>
+                            <else/>
+                        </if>
+                    </else>
+                </if>
+            </for>
+            <output expression="&quot;Valore medio &quot;" newline="False"/>
+            <output expression="media" newline="True"/>
+            <output expression="&quot;Il valore pi&#249; vicino alla media vale &quot;" newline="False"/>
+            <output expression="vvm" newline="True"/>
+        </body>
+    </function>
+</flowgorithm>

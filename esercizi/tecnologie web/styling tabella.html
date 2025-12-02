@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playwrite+US+Trad+Guides&display=swap" rel="stylesheet">
+    <title>Styled Table</title>
+    <style>
+        body {
+            font-family: 'Playwrite US Trad Guides', serif;
+            margin: 40px;
+        }
+
+        table {
+            table-layout: fixed;
+            width: 100%;
+            border-collapse: collapse;
+            border: 5px solid #000000;
+            
+        }
+
+        th , td {
+            border: 2px solid #000000;
+        }
+        thead th:nth-child(1){
+            width: 20%;
+        }
+        thead th:nth-child(2){
+            width: 30%;
+        }
+        thead th:nth-child(3){
+            width: 35%;
+        }
+        thead th:nth-child(4){
+            width: 15%;
+        }
+        th, td {
+            padding: 20px;
+        }
+
+        tbody td {
+            text-align: center;
+        }
+
+        tfoot th {
+            text-align: right;
+        }
+
+        tbody tr:nth-child(odd) {
+            background-color: #f0f0f0;
+        }
+
+        tbody tr:nth-child(even) {
+            background-color: #0f60b1;
+        }
+
+        caption {
+            padding : 20px;
+            caption-side: top;
+            font-size: 1.5em;
+            margin-bottom: 15px;
+            font-weight: bold;
+            color : #0fb10f;
+        }
+
+    </style>
+</head>
+<body>
+    <table>
+        <caption>
+            A summary of the UK's most famous punk bands
+        </caption>
+        <thead>
+            <tr>
+                <th scope="col">Band</th>
+                <th scope="col">Year formed</th>
+                <th scope="col">No. of Albums</th>
+                <th scope="col">Most famous song</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <th scope="row">Sex Pistols</th>
+                <td>1975</td>
+                <td>1</td>
+                <td>Anarchy in the UK</td>
+            </tr>
+
+            <tr>
+                <th scope="row">Sex Pistols</th>
+                <td>1975</td>
+                <td>1</td>
+                <td>Anarchy in the UK</td>
+            </tr>
+            <tr>
+                <th scope="row">Sex Pistols</th>
+                <td>1975</td>
+                <td>1</td>
+                <td>Anarchy in the UK</td>
+            </tr>
+            <tr>
+                <th scope="row">Sex Pistols</th>
+                <td>1975</td>
+                <td>1</td>
+                <td>Anarchy in the UK</td>
+            </tr>
+
+            <tr>
+                <th scope="row">Sham 69</th>
+                <td>1976</td>
+                <td>13</td>
+                <td>If The Kids Are United</td>
+            </tr>
+            
+            <tr>
+                <th scope="row">The Stranglers</th>
+                <td>1974</td>
+                <td>17</td>
+                <td>No More Heroes</td>
+            </tr>
+        </tbody>
+        <tfoot>
+            <tr>
+                <th scope="row" colspan="2">Total albums</th>
+                <td colspan="2">77</td>
+            </tr>
+        </tfoot>
+    </table>
+</body>
+</html>

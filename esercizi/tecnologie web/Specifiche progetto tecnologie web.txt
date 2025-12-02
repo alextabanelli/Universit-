@@ -1,0 +1,13 @@
+Specifiche progetto tecnologie web
+
+il progetto sarà su due docker
+
+dare importanza alla differenza tra utenti
+gestire in maniera differente studenti differenti, secchione, medio e fancazzisti
+
+dimensionare il markertplace come se avesse milioni di articolo, come Amazon o Youtube
+le immagini sono pensate per ricordare l'opera, e non voleverla vedere nell'app, quindi possono essere anche di qualità bassa
+il tipo di linguaggio è sotto il controllo dell'utente
+sistema di identificazione tramite wiki-data, che permette di identificare qualsiasi cosa tramite codici univoci
+
+dobbiamo copiare solo il nostro codice, non i file node o altri

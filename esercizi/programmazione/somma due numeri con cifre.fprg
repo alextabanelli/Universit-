@@ -1,0 +1,49 @@
+<?xml version="1.0"?>
+<flowgorithm fileversion="3.0">
+    <attributes>
+        <attribute name="name" value=""/>
+        <attribute name="authors" value="Alex"/>
+        <attribute name="about" value=""/>
+        <attribute name="saved" value="2023-09-20 12:34:26 "/>
+        <attribute name="created" value="QWxleDtXMTE7MjAyMy0wOS0yMDsiMTA6NDY6NDcgIjsxNzc0"/>
+        <attribute name="edited" value="QWxleDtXMTE7MjAyMy0wOS0yMDsiMTI6MzQ6MjYgIjs0OzE4ODE="/>
+    </attributes>
+    <function name="Main" type="None" variable="">
+        <parameters/>
+        <body>
+            <declare name="m, t, c1, c2, somma, rip, i, n" type="Integer" array="False" size=""/>
+            <output expression="&quot;Quante cifre hanno i numeri?&quot;" newline="True"/>
+            <input variable="n"/>
+            <declare name="vect" type="Integer" array="True" size="n+1"/>
+            <output expression="&quot;Dammi il primo numero&quot;" newline="True"/>
+            <input variable="m"/>
+            <output expression="&quot;Dammi il secondo numero&quot;" newline="True"/>
+            <input variable="t"/>
+            <output expression="&quot;il prodotto vale &quot;" newline="False"/>
+            <assign variable="rip" expression="0"/>
+            <assign variable="i" expression="0"/>
+            <while expression="m&gt;0">
+                <assign variable="c1" expression="m%10"/>
+                <assign variable="c2" expression="t%10"/>
+                <assign variable="somma" expression="c1+c2+rip"/>
+                <if expression="somma&gt;10 or somma == 10">
+                    <then>
+                        <assign variable="somma" expression="somma-10"/>
+                        <assign variable="rip" expression="1"/>
+                    </then>
+                    <else>
+                        <assign variable="rip" expression="0"/>
+                    </else>
+                </if>
+                <assign variable="vect[i]" expression="somma"/>
+                <assign variable="m" expression="m/10"/>
+                <assign variable="t" expression="t/10"/>
+                <assign variable="i" expression="i+1"/>
+            </while>
+            <assign variable="vect[n]" expression="t+rip"/>
+            <for variable="i" start="n" end="0" direction="dec" step="1">
+                <output expression="vect[i]" newline="False"/>
+            </for>
+        </body>
+    </function>
+</flowgorithm>

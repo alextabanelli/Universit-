@@ -1,0 +1,50 @@
+<?xml version="1.0"?>
+<flowgorithm fileversion="3.0">
+    <attributes>
+        <attribute name="name" value=""/>
+        <attribute name="authors" value="Alex"/>
+        <attribute name="about" value=""/>
+        <attribute name="saved" value="2024-09-17 11:56:51 "/>
+        <attribute name="created" value="QWxleDtXMTE7MjAyNC0wOS0xNzsiMDg6NDQ6NDAgIjsxNzc5"/>
+        <attribute name="edited" value="QWxleDtXMTE7MjAyNC0wOS0xNzsiMTE6NTY6NTEgIjsyOzE4ODc="/>
+    </attributes>
+    <function name="Main" type="None" variable="">
+        <parameters/>
+        <body>
+            <declare name="cifraprodotto00, cifraprodotto01, cifraprodotto02, cifraprodotto03, n1, n2, sum" type="Integer" array="False" size=""/>
+            <declare name="cifra00, cifra01, cifra10, cifra11, rip, cifra00mol1, cifra01mol1, cifra02mol1, cifra00mol2, cifra01mol2, cifra02mol2, cifra03mol2" type="Integer" array="False" size=""/>
+            <output expression="&quot;Dammi il primo numero&quot;" newline="True"/>
+            <input variable="n1"/>
+            <output expression="&quot;Dammi il secondo numero&quot;" newline="True"/>
+            <input variable="n2"/>
+            <assign variable="cifra00" expression="n1%10"/>
+            <assign variable="cifra01" expression="n1/10"/>
+            <assign variable="cifra10" expression="n2%10"/>
+            <assign variable="cifra11" expression="n2/10"/>
+            <assign variable="sum" expression="cifra00*cifra10"/>
+            <assign variable="cifra00mol1" expression="sum%10"/>
+            <assign variable="rip" expression="sum/10"/>
+            <assign variable="sum" expression="(cifra00*cifra11)+rip"/>
+            <assign variable="cifra01mol1" expression="sum%10"/>
+            <assign variable="cifra02mol1" expression="sum/10"/>
+            <comment text="prima moltiplicaizone"/>
+            <assign variable="sum" expression="cifra01*cifra10"/>
+            <assign variable="cifra01mol2" expression="sum%10"/>
+            <assign variable="rip" expression="sum/10"/>
+            <assign variable="sum" expression="(cifra01*cifra11)+rip"/>
+            <assign variable="cifra02mol2" expression="sum%10"/>
+            <assign variable="cifra03mol2" expression="sum/10"/>
+            <comment text="seconda moltiplicazione"/>
+            <assign variable="cifraprodotto00" expression="cifra00mol1"/>
+            <assign variable="cifraprodotto01" expression="(cifra01mol1+cifra01mol2)%10"/>
+            <assign variable="rip" expression="(cifra01mol1+cifra01mol2)/10"/>
+            <assign variable="cifraprodotto02" expression="(cifra02mol1+cifra02mol2+rip)%10"/>
+            <assign variable="rip" expression="(cifra02mol1+cifra02mol2+rip)/10"/>
+            <assign variable="cifraprodotto03" expression="cifra03mol2+rip"/>
+            <output expression="cifraprodotto03" newline="False"/>
+            <output expression="cifraprodotto02" newline="False"/>
+            <output expression="cifraprodotto01" newline="False"/>
+            <output expression="cifraprodotto00" newline="False"/>
+        </body>
+    </function>
+</flowgorithm>

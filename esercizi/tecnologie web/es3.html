@@ -1,0 +1,233 @@
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Tipografia Web — Playground</title>
+
+  <!-- Link per Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+
+  <style>
+/* === Regole base (candidati alla cascata) === */
+:root {
+  --font-system: system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --font-headings: "Roboto", var(--font-system);
+  --font-body: "CustomFont", var(--font-system);
+  --primary: #0f172a;
+  --surface: #f8fafc;
+}
+
+html { font-size: 16px; }
+
+body {
+  margin: 0;
+  color: var(--primary);
+  background: var(--surface);
+  font-family: var(--font-body);
+  line-height: 1.6;
+  letter-spacing: 0;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+main {
+  max-width: 900px;
+  margin: 24px auto;
+  padding: 16px;
+}
+
+/* === Font scaricato localmente (@font-face) === */
+@font-face {
+  font-family: "CustomFont";
+  src: url("./fonts/CustomFont/CustomFont-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* === Gerarchia tipografica === */
+h1, h2, h3 {
+  font-family: var(--font-headings);
+  line-height: 1.25;
+  margin: 0 0 .4rem;
+}
+
+h1 {
+  font-size: clamp(1.8rem, 3vw, 2.2rem);
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+h2 {
+  font-size: clamp(1.2rem, 2vw, 1.4rem);
+  font-weight: 700;
+}
+
+h3 {
+  font-size: 1.05rem;
+  font-weight: 600;
+}
+
+p { margin: .6rem 0; }
+.lede { font-size: 1.05rem; opacity: .9; }
+
+/* === Stili per le demo === */
+.sample {
+  display: grid;
+  gap: 12px;
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 800px) {
+  .sample { grid-template-columns: 1fr 1fr; }
+}
+
+.card {
+  border: 1px solid #cbd5e1;
+  border-radius: 12px;
+  padding: 14px 16px;
+  background: #ffffff;
+}
+
+.sys { font-family: var(--font-system); }
+.local { font-family: "CustomFont", var(--font-system); }
+.cloud { font-family: "Roboto", var(--font-system); }
+
+.cloud.var-300 { font-weight: 300; }
+.cloud.var-700 { font-weight: 700; }
+
+.longread { max-width: 65ch; }
+
+/* Stili per elementi specifici */
+.demo-text { font-weight: bold; color: var(--primary); }
+.code-example { font-family: monospace; background: #f4f4f4; padding: 4px 8px; border-radius: 4px; }
+.important-note { color: #dc2626; font-weight: 600; }
+  </style>
+</head>
+<body>
+
+  <main>
+    <h1>Tipografia Web: locale, scaricata, cloud</h1>
+    <p class="lede">La documentazione sullo <a href="https://developer.mozilla.org/en-US/docs/Learn_web_development/Core/Text_styling/Fundamentals" target="_blank">stile del testo</a> e sull'utilizzo dei <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Learn_web_development/Core/Text_styling/Web_fonts">web fonts</a> è disponibile su MDN.</p>
+
+    <section class="sample">
+      <article class="card local">
+        <h2>Font da 1001fonts (@font-face)</h2>
+        <p>Scarica un font da 1001fonts.com e configuralo con @font-face.</p>
+        <p class="custom-font">Questo paragrafo deve usare il nuovo font scaricato.</p>
+      </article>
+
+      <article class="card cloud">
+        <h2>Font da Google Fonts</h2>
+        <p>Aggiungi un font da Google Fonts senza scaricarlo.</p>
+        <p class="google-light">Questo paragrafo deve usare il font Google con peso 300.</p>
+        <p class="google-bold">Questo paragrafo deve usare il font Google con peso 700.</p>
+      </article>
+
+      <article class="card styles">
+        <h2>Stili di testo</h2>
+        <p>Modifica gli stili per visualizzare:</p>
+        <p class="rosso">Testo rosso</p>
+        <p class="sottolineato">Testo sottolineato</p>
+        <p class="maiuscolo">testo maiuscolo</p>
+      </article>
+
+      <article class="card headers">
+        <h2>Gerarchia tipografica</h2>
+        <p>Modifica la gerarchia dei titoli:</p>
+        <h1>Titolo H1 - Principale</h1>
+        <h2>Titolo H2 - Secondario</h2>
+        <h3>Titolo H3 - Terziario</h3>
+      </article>
+    </section>
+  </main>
+
+  <style>
+/* === Area per i tuoi esperimenti durante gli esercizi === */
+
+/* ESERCIZIO-1: Scarica e configura un font locale con @font-face
+   OBIETTIVO: Scarica un font da 1001fonts.com o Google Fonts.
+   Sostituisci "CustomFont" con il nome del tuo font e aggiorna i percorsi.
+   Esempio di @font-face corretto:
+   
+   @font-face {
+     font-family: "MioFont";
+     src: url("./fonts/MioFont/MioFont-Regular.woff2") format("woff2");
+     font-weight: 400;
+     font-style: normal;
+     font-display: swap;
+   }
+    Poi modifica il paragrafo corretto. */
+
+    @font-face {
+     font-family: "Kings Mostar";
+     src: url("C:\Users\Alex\Desktop\Desktop\Uni\esercizi\tecnologie web\Kings Mostar.otf") ;
+     font-weight: 400;
+     font-style: normal;
+     font-display: swap;
+   }
+   h1 {
+     font-family: "Kings Mostar";
+   }
+  
+
+/* ESERCIZIO-2: Configura un font da Google Fonts
+   OBIETTIVO: Aggiungere un font da Google Fonts (es. Roboto).
+   e configura il testo nei paragrafi corretti usando due diversi pesi.
+   */
+    .google-light { font-family: "Roboto", var(--font-system); font-weight: 300; }
+    .google-bold { font-family: "Roboto", var(--font-system); font-weight: 700; }
+
+
+/* ESERCIZIO-3: Modifica colore, tipo e decorazioni del testo
+   OBIETTIVO: Crea stili per le classi .rosso, .sottolineato, .maiuscolo:
+   
+   .rosso { color: #dc2626; }
+   .sottolineato { text-decoration: underline; }
+   .maiuscolo { text-transform: uppercase; font-weight: 600; }
+   
+   BONUS: Aggiungi altri stili come .corsivo, .barrato, .blu per sperimentare */
+
+.rosso { color: #dc2626; }
+.sottolineato { text-decoration: underline; }
+.maiuscolo { text-transform: uppercase; font-weight: 600; }
+.corsivo { font-style: italic; }
+.barrato { text-decoration: line-through; }
+.blu { color: #2563eb; }
+
+/* ESERCIZIO-4: Crea una gerarchia tipografica personalizzata nella sezione headers
+   OBIETTIVO: Modifica le dimensioni e stili di h1, h2, h3 per creare una gerarchia più marcata.
+   
+   Sperimenta con colori diversi, spaziature e trasformazioni del testo */
+
+h1 {
+  font-size: clamp(2rem, 4vw, 2.5rem); 
+    font-weight: 800;
+    color: #1e40af;
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+}
+h2 {
+  font-size: clamp(1.5rem, 3vw, 2rem);
+    font-weight: 700;
+    color: #2563eb;
+    margin-bottom: 0.4rem;
+    text-transform: capitalize;
+    letter-spacing: -0.01em;
+}
+h3 {
+  font-size: clamp(1.2rem, 2vw, 1.5rem);
+    font-weight: 600;
+    color: #3b82f6;
+    margin-bottom: 0.3rem;
+    text-transform: none;
+    letter-spacing: normal;
+}
+
+  </style>
+
+</body>
+</html>

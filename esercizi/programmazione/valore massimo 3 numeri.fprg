@@ -1,0 +1,47 @@
+<?xml version="1.0"?>
+<flowgorithm fileversion="3.0">
+    <attributes>
+        <attribute name="name" value=""/>
+        <attribute name="authors" value="Alex"/>
+        <attribute name="about" value=""/>
+        <attribute name="saved" value="2023-09-19 08:55:07 "/>
+        <attribute name="created" value="QWxleDtXMTE7MjAyMy0wOS0xOTsiMDg6NDY6MzQgIjsxNzg1"/>
+        <attribute name="edited" value="QWxleDtXMTE7MjAyMy0wOS0xOTsiMDg6NTU6MDcgIjs0OzE4OTY="/>
+    </attributes>
+    <function name="Main" type="None" variable="">
+        <parameters/>
+        <body>
+            <declare name="n, s, m, massimo" type="Real" array="False" size=""/>
+            <output expression="&quot;Dammi il primo numero &quot;" newline="False"/>
+            <input variable="n"/>
+            <output expression="&quot;Dammi il secondo numero &quot;" newline="False"/>
+            <input variable="s"/>
+            <output expression="&quot;Dammi il terzo numero &quot;" newline="False"/>
+            <input variable="m"/>
+            <if expression="n&gt;m">
+                <then>
+                    <if expression="n&gt;s">
+                        <then>
+                            <assign variable="massimo" expression="n"/>
+                        </then>
+                        <else>
+                            <assign variable="massimo" expression="s"/>
+                        </else>
+                    </if>
+                </then>
+                <else>
+                    <if expression="m&gt;s">
+                        <then>
+                            <assign variable="massimo" expression="m"/>
+                        </then>
+                        <else>
+                            <assign variable="massimo" expression="s"/>
+                        </else>
+                    </if>
+                </else>
+            </if>
+            <output expression="&quot;Il massimo vale &quot;" newline="False"/>
+            <output expression="massimo" newline="True"/>
+        </body>
+    </function>
+</flowgorithm>

@@ -1,0 +1,249 @@
+openapi: "3.0.3"
+info:
+  title: Ristorante API (parziale)
+  version: "1.0.0"
+  description: >
+    API REST per la gestione di menù e piatti di un ristorante.
+servers:
+  - url: https://api.example.com/api/v1
+    description: Production server
+
+paths:
+  /menus:
+    get:
+      summary: Elenco di tutti i menù
+      operationId: listMenus
+      tags:
+        - Menus
+      responses:
+        "200":
+          description: Lista di menù (solo id e description)
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  menus:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/MenuSummary'
+                required:
+                  - menus
+              examples:
+                sample:
+                  summary: Esempio di risposta
+                  value:
+                    menus:
+                      - id: "breakfast"
+                        description: "Colazione: pane, bevande e dolci"
+                      - id: "lunch"
+                        description: "Pranzo: primi, secondi e contorni"
+
+  /menus/{menuId}:
+    parameters:
+      - $ref: '#/components/parameters/menuId'
+    get:
+      summary: Informazioni di uno specifico menù (senza elenco piatti)
+      operationId: getMenu
+      tags:
+        - Menus
+      responses:
+        "200":
+          description: Dati del menù (id e description)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MenuSummary'
+              examples:
+                sample:
+                  summary: Esempio di risposta
+                  value:
+                    id: "lunch"
+                    description: "Pranzo: primi, secondi e contorni"
+        "404":
+          description: Menù non trovato
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              examples:
+                notFound:
+                  summary: Menù non trovato
+                  value:
+                    code: 404
+                    message: "Menu with id 'dinner' not found"
+
+  /menus/{menuId}/dishes:
+    parameters:
+      - $ref: '#/components/parameters/menuId'
+    post:
+      summary: Aggiungi un nuovo piatto a un menù
+      operationId: addDishToMenu
+      tags:
+        - Dishes
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DishInput'
+            examples:
+              newDish:
+                summary: Esempio body per creare un piatto
+                value:
+                  id: "dish-123"
+                  description: "Tagliatelle al ragù"
+                  price: 9.50
+      responses:
+        "201":
+          description: Piatto creato con successo
+          headers:
+            Location:
+              description: URI del piatto creato
+              schema:
+                type: string
+                format: uri
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Dish'
+              examples:
+                created:
+                  summary: Esempio risposta 201
+                  value:
+                    id: "dish-123"
+                    description: "Tagliatelle al ragù"
+                    price: 9.50
+        "400":
+          description: Richiesta non valida (es. attributi mancanti o prezzo negativo)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              examples:
+                badRequest:
+                  summary: Esempio 400
+                  value:
+                    code: 400
+                    message: "Invalid request: 'price' must be >= 0"
+        "404":
+          description: Menù non trovato
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              examples:
+                menuNotFound:
+                  summary: Menù non trovato
+                  value:
+                    code: 404
+                    message: "Menu with id 'dinner' not found"
+        "409":
+          description: Conflitto (es. un piatto con lo stesso id esiste già nel menù)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              examples:
+                conflict:
+                  summary: Esempio 409
+                  value:
+                    code: 409
+                    message: "Dish with id 'dish-123' already exists in menu 'lunch'"
+
+components:
+  parameters:
+    menuId:
+      name: menuId
+      in: path
+      description: Identifier del menù
+      required: true
+      schema:
+        type: string
+      example: "lunch"
+
+  schemas:
+    MenuSummary:
+      type: object
+      description: Rappresentazione di un menù (senza piatti)
+      properties:
+        id:
+          type: string
+          description: ID del menù
+        description:
+          type: string
+          description: Descrizione testuale del menù
+      required:
+        - id
+        - description
+      example:
+        id: "breakfast"
+        description: "Colazione: pane, bevande e dolci"
+
+    Dish:
+      type: object
+      description: Rappresentazione completa di un piatto
+      properties:
+        id:
+          type: string
+          description: ID del piatto
+        description:
+          type: string
+          description: Descrizione testuale del piatto
+        price:
+          type: number
+          format: double
+          description: Prezzo del piatto (valuta non specificata)
+      required:
+        - id
+        - description
+        - price
+      example:
+        id: "dish-123"
+        description: "Tagliatelle al ragù"
+        price: 9.50
+
+    DishInput:
+      type: object
+      description: Corpo della richiesta per creare un piatto (tutti gli attributi obbligatori)
+      properties:
+        id:
+          type: string
+          description: ID univoco del piatto nel contesto del menù
+        description:
+          type: string
+          description: Descrizione del piatto
+        price:
+          type: number
+          format: double
+          description: Prezzo del piatto (>= 0)
+      required:
+        - id
+        - description
+        - price
+      example:
+        id: "dish-123"
+        description: "Tagliatelle al ragù"
+        price: 9.50
+
+    Error:
+      type: object
+      properties:
+        code:
+          type: integer
+          description: Codice HTTP o codice interno
+        message:
+          type: string
+          description: Messaggio di errore leggibile
+      required:
+        - code
+        - message
+      example:
+        code: 404
+        message: "Resource not found"
+
+tags:
+  - name: Menus
+    description: Operazioni sui menù (solo metadata)
+  - name: Dishes
+    description: Operazioni sui piatti all'interno di un menù

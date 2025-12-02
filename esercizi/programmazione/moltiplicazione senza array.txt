@@ -1,0 +1,40 @@
+#include <iostream>
+#include <cmath>
+
+int main() {
+    int numero1, numero2;
+
+    // Chiedi all'utente di inserire i due numeri
+    std::cout << "Inserisci il primo numero: ";
+    std::cin >> numero1;
+
+    std::cout << "Inserisci il secondo numero: ";
+    std::cin >> numero2;
+
+    int z = 0;
+    int prodotto = 0;
+    int cifra;
+    int contatoreCifra = 0;
+
+    while (numero2 > 0) {
+        cifra = numero2 % 10; // Ottieni l'ultima cifra di numero2
+        int parziale = numero1 * cifra;
+
+        // Aggiungi spazi per l'allineamento
+        for (int i = 0; i < contatoreCifra; i++) {
+            std::cout << " ";
+        }
+
+        std::cout << parziale << std::endl;
+
+        prodotto += parziale*(pow (10,z)); // Aggiungi il parziale al prodotto totale
+        numero2 /= 10; // Rimuovi l'ultima cifra da numero2
+        contatoreCifra++;
+        z++;
+    }
+
+    // Stampa il risultato finale
+    std::cout << "Il prodotto dei due numeri e': " << prodotto << std::endl;
+
+    return 0;
+}

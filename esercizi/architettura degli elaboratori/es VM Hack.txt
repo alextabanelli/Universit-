@@ -1,0 +1,120 @@
+es VM Hack
+push costant 0
+pop local z
+push argument 0
+push argument 1
+gt
+not
+if-goto ELSE
+push argument 0
+return
+label ELSE
+push argument 1
+push costant 3
+add
+pop local 0 
+push local 0
+push argument 0
+gt
+return
+
+
+
+function fun 0
+push constant 2
+push argument 0
+add
+pop argument 0
+label WHILE // inizia corpo del while
+push constant 4
+push argument 0
+add
+pop argument 0
+push argument 0 // inizia test while
+push constant 15
+lt
+if-goto WHILE
+push argument 0
+neg
+return 
+
+(LOOP)
+@0
+D=M
+@1
+D=D-M
+@END
+D,JGT
+@0
+D=M
+@1
+D=D+M
+@2
+D=D-A
+@1
+M=D
+@0
+M=M+M
+@LOOP
+D,JMP
+(END)
+@1
+D=M
+@0
+D=D-M
+@3
+M=D
+
+
+
+function f 2
+push constant 5
+pop local 0
+push constant 0
+pop local 1
+label DO // inizia corpo del while
+push argument 0
+push costant 1
+add
+pop argument 0
+push local 0
+push argument 0
+sub
+push costant 4
+gt
+pop local 1
+push local 1
+push argument 0
+push costant 3
+lt
+and
+pop local 1
+push argument 0
+push constant 5
+lt
+if-goto DO
+push argument 0
+push local 0
+add
+return
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

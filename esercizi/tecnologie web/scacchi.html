@@ -1,0 +1,409 @@
+es 1
+
+
+const elem = document.getElementById('PRIMO');
+elem.style.backgroundColor = 'pink';
+
+const elementi = document.querySelectorAll('.QUADRATINO');
+
+const N = 8; // numero di colonne (e righe)
+
+// elementi è una lista piatta, la trattiamo come matrice
+for (let i = 0; i < elementi.length; i++) {
+    const r = Math.floor(i / N); // indice riga
+    const c = i % N;             // indice colonna
+
+    // regola della scacchiera: (r + c) pari → bianco, dispari → nero
+    if ((r + c) % 2 === 0) {
+        elementi[i].style.backgroundColor = 'white';
+    } else {
+        elementi[i].style.backgroundColor = 'black';
+    }
+}
+
+
+es 2
+
+const elementi = document.querySelectorAll('.QUADRATINO');
+
+const N = 8; // numero di colonne (e righe)
+const col = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'];
+//const row = [1, 2, 3, 4, 5, 6, 7, 8];
+
+// elementi è una lista piatta, la trattiamo come matrice
+for (let i = 0; i < N; i++) {
+    r = i+1; // riga
+    let rig = col[i];
+    for (let j = 0; j < N; j++) {
+        c = j+1; // colonna
+        let col = (7-j)+1;
+        const indice = i * N + j; // calcolo l'indice piatto
+        elementi[indice].textContent = rig + col;
+        
+    }
+    // regola della scacchiera: (r + c) pari → bianco, dispari → nero
+    
+}
+
+es 3
+
+const BASE = "https://github.com/GiorgioMegrelli/chess.com-boards-and-pieces/blob/master/pieces/bases/";
+
+function mettiPezzo(square, codice) {
+    const cella = document.querySelector(`[data-square="${square}"]`);
+    if (!cella) return; // se la cella non esiste, esci
+
+    const img = document.createElement('img');
+    img.src = `${BASE}${codice}.png?raw=true`;
+    img.alt = codice;
+
+    // rimuovo eventuale pezzo precedente
+    cella.innerHTML = "";
+
+    cella.appendChild(img);
+}
+
+mettiPezzo("a8", "br");
+mettiPezzo("b8", "bn");
+mettiPezzo("c8", "bb");
+mettiPezzo("d8", "bq");
+mettiPezzo("e8", "bk");
+mettiPezzo("f8", "bb");
+mettiPezzo("g8", "bn");
+mettiPezzo("h8", "br");
+
+// Bianchi (1ª fila)
+mettiPezzo("a1", "wr");
+mettiPezzo("b1", "wn");
+mettiPezzo("c1", "wb");
+mettiPezzo("d1", "wq");
+mettiPezzo("e1", "wk");
+mettiPezzo("f1", "wb");
+mettiPezzo("g1", "wn");
+mettiPezzo("h1", "wr");
+
+
+// ------------------------
+//  PEDONI
+// ------------------------
+const l = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'];
+// Pedoni neri in 7ª fila
+for (let col = 0; col < 8; col++) {
+    const lettera = l[col];
+    const casella = lettera + "7";
+    mettiPezzo(casella, "bp");
+}
+
+// Pedoni bianchi in 2ª fila
+for (let col = 0; col < 8; col++) {
+    const lettera = l[col];
+    const casella = lettera + "2";
+    mettiPezzo(casella, "wp");
+}
+
+
+
+--------------------------------------------------------------------
+#Seconda consegna
+
+const posizioni = {
+  // Pezzi bianchi (riga 1)
+  "a1": "wr", "b1": "wn", "c1": "wb", "d1": "wq",
+  "e1": "wk", "f1": "wb", "g1": "wn", "h1": "wr",
+
+  // Pedoni bianchi (riga 2)
+  "a2": "wp", "b2": "wp", "c2": "wp", "d2": "wp",
+  "e2": "wp", "f2": "wp", "g2": "wp", "h2": "wp",
+
+  // Pedoni neri (riga 7)
+  "a7": "bp", "b7": "bp", "c7": "bp", "d7": "bp",
+  "e7": "bp", "f7": "bp", "g7": "bp", "h7": "bp",
+
+  // Pezzi neri (riga 8)
+  "a8": "br", "b8": "bn", "c8": "bb", "d8": "bq",
+  "e8": "bk", "f8": "bb", "g8": "bn", "h8": "br"
+};
+
+
+const BASE = "https://github.com/GiorgioMegrelli/chess.com-boards-and-pieces/blob/master/pieces/bases/";
+
+function mettiPezzo(square, codice) {
+    const cella = document.querySelector(`[data-square="${square}"]`);
+    if (!cella) return; // se la cella non esiste, esci
+
+    const img = document.createElement('img');
+    img.src = `${BASE}${codice}.png?raw=true`;
+    img.alt = codice;
+
+    // rimuovo eventuale pezzo precedente
+    cella.innerHTML = "";
+
+    cella.appendChild(img);
+}
+
+for (const square in posizioni) {
+    const codice = posizioni[square];
+    mettiPezzo(square, codice);
+}
+
+
+
+
+
+
+
+
+
+// ================================
+//  DIZIONARIO: PEZZO → POSIZIONE
+// ================================
+const piecePositions = {
+    // Bianchi
+    "wr1": "a1", "wn1": "b1", "wb1": "c1", "wq": "d1",
+    "wk":  "e1", "wb2": "f1", "wn2": "g1", "wr2": "h1",
+
+    "wp1": "a2", "wp2": "b2", "wp3": "c2", "wp4": "d2",
+    "wp5": "e2", "wp6": "f2", "wp7": "g2", "wp8": "h2",
+
+    // Neri
+    "bp1": "a7", "bp2": "b7", "bp3": "c7", "bp4": "d7",
+    "bp5": "e7", "bp6": "f7", "bp7": "g7", "bp8": "h7",
+
+    "br1": "a8", "bn1": "b8", "bb1": "c8", "bq": "d8",
+    "bk":  "e8", "bb2": "f8", "bn2": "g8", "br2": "h8"
+};
+
+
+// ===================================================
+//  FUNZIONE CHE HAI FORNITO (la usiamo per tutto)
+// ===================================================
+const BASE = "https://github.com/GiorgioMegrelli/chess.com-boards-and-pieces/blob/master/pieces/bases/";
+
+function mettiPezzo(square, codice) {
+    const cella = document.querySelector(`[data-square="${square}"]`);
+    if (!cella) return;
+
+    const img = document.createElement('img');
+    img.src = `${BASE}${codice}.png?raw=true`;
+    img.alt = codice;
+
+    cella.innerHTML = "";
+    cella.appendChild(img);
+}
+
+
+// ============================
+//  FUNZIONE: SVUOTA UNA CELLA
+// ============================
+function svuotaCella(cella) {
+    const elemento = document.querySelector(`[data-square="${cella}"]`);
+    if (elemento) elemento.innerHTML = "";
+}
+
+
+// ======================================
+//  FUNZIONE: INIZIALIZZA LA SCACCHIERA
+// ======================================
+function inizializzaScacchiera() {
+    resetScacchiera();
+
+    for (const pezzo in piecePositions) {
+        const square = piecePositions[pezzo];
+        const codice = pezzo.slice(0, 2); // wr1 → wr
+        mettiPezzo(square, codice);
+    }
+}
+
+
+// ============================
+//  FUNZIONE: MUOVI UN PEZZO
+// ============================
+function muoviPezzo(pezzo, nuovaCella) {
+    const cellaVecchia = piecePositions[pezzo];
+    if (!cellaVecchia) return;
+
+    // svuoto la vecchia cella
+    svuotaCella(cellaVecchia);
+
+    // rimuovo eventuale pezzo nella nuova cella (cattura)
+    rimuoviPezzoDaCella(nuovaCella);
+
+    // aggiorno la posizione del pezzo
+    piecePositions[pezzo] = nuovaCella;
+
+    // disegno il pezzo nella nuova cella
+    mettiPezzo(nuovaCella, pezzo.slice(0, 2));
+}
+
+
+// =================================================
+//  RIMUOVI QUALSIASI PEZZO IN UNA CERTA CELLA
+// =================================================
+function rimuoviPezzoDaCella(cellaDaLiberare) {
+    for (const p in piecePositions) {
+        if (piecePositions[p] === cellaDaLiberare) {
+            delete piecePositions[p]; // rimuovo dal dizionario
+            break;
+        }
+    }
+    svuotaCella(cellaDaLiberare);
+}
+
+
+// ============================
+//  RESET COMPLETO SCACCHIERA
+// ============================
+function resetScacchiera() {
+    const files = ["a","b","c","d","e","f","g","h"];
+    const ranks = [1,2,3,4,5,6,7,8];
+
+    for (const f of files) {
+        for (const r of ranks) {
+            const square = f + r;
+            svuotaCella(square);
+        }
+    }
+}
+inizializzaScacchiera();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Es 1
+
+
+
+
+const posizioni = {
+  // Pezzi bianchi (riga 1)
+  "a1": "wr", "b1": "wn", "c1": "wb", "d1": "wq",
+  "e1": "wk", "f1": "wb", "g1": "wn", "h1": "wr",
+
+  // Pedoni bianchi (riga 2)
+  "a2": "wp", "b2": "wp", "c2": "wp", "d2": "wp",
+  "e2": "wp", "f2": "wp", "g2": "wp", "h2": "wp",
+
+  // Pedoni neri (riga 7)
+  "a7": "bp", "b7": "bp", "c7": "bp", "d7": "bp",
+  "e7": "bp", "f7": "bp", "g7": "bp", "h7": "bp",
+
+  // Pezzi neri (riga 8)
+  "a8": "br", "b8": "bn", "c8": "bb", "d8": "bq",
+  "e8": "bk", "f8": "bb", "g8": "bn", "h8": "br"
+};
+
+#Il dizionario PIECE_URLS converte i codici (es. 'wr') negli URL delle immagini
+
+function posizionaPezzi() {
+    for (const coordinata in posizioni) {
+        const codice = posizioni[coordinata];
+        const cella = document.getElementById(coordinata);
+        if (!cella) return; // se la cella non esiste, esci
+
+        const img = document.createElement('img');
+        img.src = `${PIECE_URLS[`${codice}`]}`;
+        img.alt = codice;
+
+        // rimuovo eventuale pezzo precedente
+        cella.innerHTML = "";
+
+        cella.appendChild(img);
+    }
+}
+
+posizionaPezzi();
+
+
+
+
+Es 2
+
+
+// Seleziona tutte le celle della scacchiera
+const celle = document.querySelectorAll('.square');
+
+// Itera su tutte le celle e aggiunge un listener 'click'
+for (const cella of celle) {
+    cella.addEventListener('click', function(event) {
+        // Ottieni la coordinata della cella cliccata
+        const coordinata = event.target.id;
+
+        // Verifica se c'è un pezzo in quella coordinata
+        let nomePezzo = "Nessun pezzo";
+        if (coordinata in posizioni) {
+            const codicePezzo = posizioni[coordinata];
+            nomePezzo = NOMI_PEZZI[codicePezzo] || "Sconosciuto";
+        }
+
+        // Mostra l'alert con la coordinata e il pezzo
+        alert('Cella cliccata: ' + coordinata + '\nPezzo presente: ' + nomePezzo);
+    });
+}
+
+
+Es 3
+
+// =====================
+// PROTOTIPO BOARD
+// =====================
+const BoardProto = {
+    spostaPezzo: function(da, a) {
+        const pezzo = this[da];
+
+        if (!pezzo) {
+            console.error(`Nessun pezzo nella cella ${da}`);
+            return false; // oppure: throw new Error(`Nessun pezzo nella cella ${da}`);
+        }
+
+        // Aggiorna lo stato interno
+        delete this[da];
+        this[a] = pezzo;
+
+        // Aggiorna il DOM
+        const from = document.getElementById(da);
+        const to = document.getElementById(a);
+
+        if (!from || !to) return false;
+
+        // Rimuovi eventuale pezzo catturato
+        const imgTo = to.querySelector('img');
+        if (imgTo) {
+            to.removeChild(imgTo);
+        }
+
+        // Sposta l'immagine se esiste in from, altrimenti crea nuova
+        const imgFrom = from.querySelector('img');
+        if (imgFrom) {
+            to.appendChild(imgFrom);
+        } else {
+            // crea l'immagine dal codice
+            const img = document.createElement('img');
+            const baseCode = pezzo.slice(0, 2); // es: 'wp1' -> 'wp'
+            img.src = PIECE_URLS[baseCode];
+            img.alt = pezzo;
+            to.appendChild(img);
+        }
+
+        return true;
+    }
+};
+
+// Collega il prototipo a posizioni
+Object.setPrototypeOf(posizioni, BoardProto);
+
+// =====================
+// Esempio di uso
+// =====================
+posizioni.spostaPezzo('e2','e4'); // muove pedone bianco avanti di due
+    

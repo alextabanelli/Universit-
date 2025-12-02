@@ -1,0 +1,205 @@
+<!doctype html>
+<html lang="it">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Cascata & Nesting — Playground</title>
+  <style>
+    /* === Regole base (candidati alla cascata) === */
+    :root {
+      --brand: #2563eb;
+      --neutral: #475569;
+    }
+
+    nav {
+      font-family: system-ui, sans-serif;
+
+      a {
+        color: var(--brand);
+        text-decoration: none;
+      }
+
+      a:hover {
+        text-decoration: underline;
+      }
+    }
+
+    /* === Stili per le sezioni multiple === */
+    .content-section {
+      margin: 20px 0;
+      padding: 15px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+    }
+
+    .intro {
+      background-color: #f0f8ff;
+    }
+
+    .tutorial {
+      background-color: #f5f5dc;
+    }
+
+    .examples {
+      background-color: #f0fff0;
+    }
+
+    .challenge {
+      background-color: #fff5ee;
+    }
+
+    /* Stili per elementi specifici */
+    .highlight {
+      font-weight: bold;
+      color: #d2691e;
+    }
+
+    .code-snippet {
+      font-family: monospace;
+      background: #f4f4f4;
+      padding: 2px 4px;
+    }
+
+    .important {
+      color: #dc143c;
+      text-decoration: underline;
+    }
+
+    /* MESSAGGIO SEGRETO - Non modificare queste regole! */
+    .secret-container {
+      position: relative;
+      background-color: #fff5ee;
+    }
+
+    .secret-message {
+      position: absolute;
+      top: 0;
+      left: 0;
+      color: #fff5ee;
+      background-color: #fff5ee;
+      padding: 5px;
+      font-size: 12px;
+      border-radius: 3px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <nav>
+    <a href="#">Home</a> · <a href="#">Articoli</a> · <a href="#">Contatti</a>
+  </nav>
+
+  <article class="post featured">
+    <h1>Titolo della Feature</h1>
+
+    <section class="content intro">
+      <h2>Introduzione</h2>
+      <p>Benvenuto in questo tutorial su CSS!
+        Qui imparerai i concetti di <span class="highlight">specificità</span> e <span
+              class="highlight">cascata</span>.</p>
+      <p>Questo è il primo paragrafo con un link alla documentazione sui <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Learn_web_development/Core/Styling_basics/Basic_selectors">selettori</a> e <a href="https://developer.mozilla.org/en-US/docs/Learn_web_development/Core/Styling_basics/Pseudo_classes_and_elements" target="_blank">pseudo classi/elementi</a>.</p>
+    </section>
+
+    <section class="content tutorial">
+      <h2>Tutorial Base</h2>
+      <p>I selettori CSS hanno diversi livelli di <span class="important">specificità</span>. Esempio:</p>
+      <ul>
+        <li>Gli <span class="code-snippet">ID</span> hanno specificità 100</li>
+        <li>Le <span class="code-snippet">classi</span> hanno specificità 10</li>
+        <li>Gli <span class="code-snippet">elementi</span> hanno specificità 1</li>
+      </ul>
+      <p>Secondo paragrafo con un altro link alla documentazione e a come vengono gestiti i <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Learn_web_development/Core/Styling_basics/Handling_conflicts">conflitti (specificità)</a> e <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Learn_web_development/Core/Styling_basics/Combinators">combinati</a> i selettori.</p>
+    </section>
+
+    <section class="content examples">
+      <h2>Esempi Pratici</h2>
+      <p>Osserva come i diversi selettori interagiscono tra loro. Il selettore <span class="code-snippet">.post
+
+          &gt; h1</span> ha una specificità maggiore di <span class="code-snippet">article h1</span>.</p>
+      <p>Prova a modificare i <a href="#">link in questa sezione</a> per vedere gli effetti!</p>
+    </section>
+
+    <section class="content challenge secret-container">
+      <h2>Sfida Finale</h2>
+      <p>Ora che hai imparato le basi, è tempo di una <span class="important">sfida</span>!</p>
+      <div class="secret-message">YOU SHALL NOT PASS</div>
+      <p>Cerca attentamente in questa sezione... c'è qualcosa di nascosto che puoi rivelare solo modificando la regola CSS giusta!</p>
+      <p>Suggerimento: guarda l'ESERCIZIO-4 nelle istruzioni CSS e modifica il colore del testo della classe indicata.</p>
+    </section>
+  </article>
+
+  <footer>
+    <p>Link utili: <a href="#">privacy</a> · <a href="#">note legali</a></p>
+  </footer>
+
+  <style>
+/* === Area per i tuoi esperimenti durante gli esercizi === */
+
+/* ESERCIZIO-1: Aggiungi qui una regola più specifica, che vinca sulle tre regole di seguito,
+   che modifichi il colore del titolo principale dentro <article class="post featured"> */
+
+
+
+
+h1 {
+  color: var(--neutral);
+}
+
+article h1 {
+  color: teal;
+}
+
+.post  h1 {
+  color: rebeccapurple;
+}
+
+article.post.featured h1 {
+  color: olive;
+}
+
+
+/* ESERCIZIO-2: */
+
+/* Quale regola ha la precedenza? e perché */
+
+.content a {
+  color: crimson;
+}
+
+.content p a {
+  color: rgb(43, 255, 0);
+}
+
+/* la seconda regola ha la precedenza perché è più specifica della prima */
+
+/* Risolvi il conflitto dei link nella prima sezione aggiungendo una
+   regola che renda i link del primo paragrafo blu scuro */
+
+/* === Ordine nella cascata === */
+footer a {
+  color: gray;
+}
+
+/* ESERCIZIO-3: Aggiungi più sotto un'altra regola equivalente che modifichi
+   il colore dei link nel footer in verde scuro. */
+
+footer a {
+  color: darkgreen;
+}
+
+/* ESERCIZIO-4: Trova il messaggio segreto nascosto nella sezione "Challenge".
+   Per svelarlo, devi modificare SOLO il colore del testo della classe corretta.*/
+.secret-message {
+  color: darkorange; /* Modifica questo colore per svelare il messaggio */  
+}
+
+/* ESERCIZIO bonus: segui questi esercizi:
+- https://developer.mozilla.org/en-US/docs/Learn_web_development/Core/Styling_basics/Styling_a_bio_page
+- https://developer.mozilla.org/en-US/docs/Learn_web_development/Core/Styling_basics/Test_your_skills/Selectors */
+  </style>
+
+</body>
+
+</html>

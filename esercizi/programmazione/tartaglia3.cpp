@@ -1,0 +1,52 @@
+#include <iostream>
+using namespace std;
+int main() {
+    int x, y, z, n, w, k, f, g;
+    long double fattorialen = 1, fattorialeg = 1, fattorialek = 1, divisore;
+    cout << "Dammi n " << endl;
+    cin >> x;
+    //z = 1; //quanto scrivere nella riga
+    //ciclo per quante righe scrivere
+    for (z = 1; z<x+1; z=z+1){
+        if (z == 1) cout << " " << "1" << " " << endl;
+        //ciclo per quante volte scrivere in una riga
+        fattorialen = 1;
+    
+        n = z;
+        while(n>1){
+            fattorialen = fattorialen*n;
+            n = n-1;
+        }
+        n = z;
+       for (int i = 0; i < z+1; i=i+1) {
+           //
+           k = i;
+           g = n-k;
+           fattorialeg = 1;
+           fattorialek = 1;
+           //cout << "n-k " << g;
+           //cout << "n " << n;
+           //cout << "k " << k << endl;
+               //ciclo fattoriale k
+               while(g>1){
+                     fattorialeg = fattorialeg*g;
+                     g = g-1;
+               } 
+               while(k>1){
+                     fattorialek = fattorialek*k;
+                     k = k-1;
+               } 
+               k = i;
+               g = n-k;
+           if (g == 0 || g == 1) fattorialeg=1;
+           if (k == 0 || k == 1) fattorialek=1;
+           divisore = fattorialeg*fattorialek;
+           //cout << "fg " << fattorialeg << " " << "fk " << fattorialek << endl;
+           //cout << "div " << divisore << "fn " << fattorialen;
+           cout << " " << fattorialen/divisore << " ";
+
+       } cout << endl;
+    } if (x == 0) cout << "1" << endl;
+    return 0;
+}
+
