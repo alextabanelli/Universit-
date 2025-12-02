@@ -1,0 +1,10 @@
+telnet Sharpless.cs.unibo.it
+
+HELO flora.cs.unibo.it
+
+MAIL FROM <leonardo.da.....>
+
+RCPT TO <luciano.bo......>
+
+DATA
+
