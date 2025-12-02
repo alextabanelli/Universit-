@@ -1,0 +1,24 @@
+Logica 19 settembre
+
+primo modulo fino a fine novembre
+
+fare il corso sulla sicurezza
+attivare l'account dipartimentale
+enableaccount.cs.unibo.it
+
+ciò che vale non è sempre dimostrabile
+ci sono situazioni in cui anche se conosco tante regole potrei non essere in grado di dimostrare ciò che vale
+un programma non può trovare tutte le dimostrazioni, specialmente se non ci sono, non saremo certi che quella cosa valga o non valga
+
+la logica utilizzata per programmare, e quindi che usa algoritmi si chiama logica intuizionista
+la logica che studia la verità è la logica classica
+logica che sstudia gli eventi futuri è la logica temporale
+la logica del possesso è denominata logica lineare
+
+meta-logica è la logica che uso per capire e ragionare sulla logica
+
+la logica mi aiuta a capire se durante le mie scomposizioni di problemi ho eseguito correttamente i passaggi
+
+l'informatica non può trattare con oggetti infiniti, infatti i numeti reali che utilizziamo non sono come i numeri reali studiati in matematica
+
+la specifica del software mi descrive cosa il programma deve fare

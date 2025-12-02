@@ -1,0 +1,57 @@
+20 settembre logica
+un fondamento è avere poche ipotesi e pochi enti, che però sono verificati
+es. la teoria degli insiemi
+la teoria degli insiemi è il fondamento della matematica
+tutto è un insieme
+gli insiemi contengono altri insiemi
+gli enti matematici sono tutti insiemi particolari
+la teoria degli insiemi è molto pratica
+nel momento in cui abbiamo degli insiemi composti da numerosi sottoinsiemi si perde l'aspetto computazionale
+teoria naive degli insiemi : io posso creare insiemi in ogni modo che mi vieni in mente  (teoria errata)
+posso elencare gli elementi di un insieme
+creare un insieme per comprensione
+la teoria è minimale perchè si basa solo sul concetto di uguaglianza, appertenenza e insieme
+un elemento appartiene ad un insieme, vuol dire che se guardo il contenuto di quell'insieme, vedo quell'elemento, senza guardare ad altri insiemi
+per esempio se B contiene la scatola A che contiene x, x non apppartiene a B perchè se guardo dentro B, vedo solo A
+l'insieme vuoto non è il nulla, ma è un insieme senza elementi al suo interno
+A è un sottoinsieme di B se e solamente se tutti gli elementi di A sono anche di B
+due insiemi sono uguali se e solamente se hanno gli stessi elementi, anche se ripetuti o con ordine diverso
+se elenchiamo più volte uno stesso elemento di un insieme non modifichiamo l'insieme
+teorie assiomatiche degli insiemi
+paradosso di russel
+x è l'insieme che ottengo prendendo gli insiemi degli y che non appartengono a loro stessi
+ha creato un paradosso che ha smontato la teoria insiemistica dell'800
+allora si chiede, ma X appartiene all'insieme X?
+quindi X appertiene a X se e solo se X non appartiene a X
+non posso usare le proprietà che voglio perché potrebbero non esistere
+gli insiemi troppo grandi diventano classi
+per questo motivo viene definito che X è una classe, perciò non appartiene a sè stesso
+assiomi = ipotesi
+una classe può appartenere a una super classe
+l'introduzione delle classi risolve il paradosso perché una classe non può appartenere a sé stessa
+come si determina la differenza tra classi e insiemi?
+daremo degli assiomi per garantire l'esistenza di certi insiemi (teoria assiomatica)
+teoria assiomatica degli insiemi (ce ne sono tante):
+i concetti di insieme, appartenenza e uguaglianza sono primitivi, ovvero non vengono definiti, ma descriviamo le loro proprietà
+usiamo assiomi/ipotesi per affermare l'esistenza di alcuni insiemi a partire da altri
+assioma è una cosa che io fisso, e poi durerà per tempo, invece un'ipotesi è una cosa temporanea
+l'ipotesi è una cosa che pensi che possa accadere, ma non ci credi totalmente, invece un assioma è una cosa in cui credo e su cui non tornerò più
+ci sono numerose teorie insiemistiche che differiscono riguardo agli assiomi
+noi seguiremo la teoria di Zermelo-fraenkel (ZF)
+non è mai stata dimostrata consistente, sicura
+gli assiomi sono arbitrari e portano a teorie differenti
+Assiomi di Zermelo-Fraenkel:
+assioma di estensionalità : due insiemi sono uguali se e solamente se hanno gli stessi elementi
+un'assioma è un'ipotesi che prendiamo come vera (senza contare i casi in cui potrebbe non esserlo) da adesso in poi
+una definizione invece è solo un'abbreviazione, per facilitare il lavoro, abbreviazione di una scritta
+assioma di separazione : a partire da una proprietà non posso definire un insieme con elementi aventi quelle proprietà perché l'insieme potrebbe essere troppo grande.
+dato un insieme possiamo formare un sottoinsieme dei suoi elementi che soddisfano una proprietà
+Z appartiene a y se e solo se Z appartiene anche a X e soddisfa una determinata proprietà P(Z)
+l'insieme di tutti gli insiemi è una classe, e si evita il paradosso di russel
+non ci sono assiomi per restringere classi in insiemi, ma ci sono casi particolari in cui succede
+assioma dell'insieme vuoto : 
+esiste l'insieme X, dentro al quale non trovo nessun elemento
+definizione di intersezione binaria (di due insiemi), non ho bisogno di assiomi
+l'intersezione è l'insieme degli elementi che appartengono contemporaneamente ad entrambi gli insiemi
+teorema è un qualcosa che io riesco a dimostrare grazie agli assiomi che ho fissato
+posso intersecare solo un numero finito di volte, non posso farlo per cose infinite

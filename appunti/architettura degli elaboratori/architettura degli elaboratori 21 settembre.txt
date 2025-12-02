@@ -1,0 +1,28 @@
+architettura degli elaboratori 21 settembre
+il PC sa contare
+quando c'è un salto da eseguire, il suo valore cambia per fare il salto
+il PC contiene l'indirizzo che descrive l'istruzione che il processore deve eseguire
+il valore viene copiato da PC al MAR, questo processo viene avviato dalla CU
+i multiplexer decidono dove e quali segnali mandare
+questo valore arriva alla RAM, che legge il valore ricevuto in ingresso dopo aver ricevuto un segnale dalle CU
+la RAM rimanda il valore indietro attraverso il bus dati e arriva al MDR
+il valore viene copiato sull'IR dopo un comando della CU
+la CU analizza l'istruzione ricevuta nella MDR
+i registri hanno lo stesso numero di bit
+1) la CU copia le cifre significative dell'istruzione nel registro dedicato, azzerando le altre
+2) la CU manda le cifre significativa alla ALU, che fa la somma 0, e manda il risultato nel registro indicato
+alla fine di tutto di solito incremento il PC
+PSW si chiama anche registro dei flag, ovvero di condizioni
+[AX] vuol dire che al suo interno trovo un indirizzo
+processore in pipeline ha 5 pezzi che fanno solo una cosa, ma la fanno velocemente
+il pipeline è un parallelismo
+multicore è l'alternativa del pipeline
+di PC posso averne solo 1
+nel multicore si fanno meno parallelismi rispetto alle pipeline
+le schede grafiche hanno questo dipo di funzionamento
+puoi sfruttare il parallelismo solo se usi dati diversi nei processi contemporanei
+quando si hanno troppi core si usano processori che comunicano usando diverse memorie traminte una rete di connesione senza una memoria condivisa
+un multicore è un grande processore composto da più processori più piccoli, con ALU diverse
+cache è una memoria volatile, più piccola e più veloce della RAM, ma più lenta e grande dei registri
+la word è l'unità di memoria con cui andiamo a lavorare, è una memoria che può essere a 32 o 64 bit
+word è limite massimo di memoria che posso utilizzare per gestire un file assemblare

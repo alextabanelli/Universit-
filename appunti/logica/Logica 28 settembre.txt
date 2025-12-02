@@ -1,0 +1,41 @@
+Logica 28 settembre
+L'unione possiamo farla con infiniti elementi, basta racchiuderli tutti in un insieme 
+Estiste (introduzione)
+per dimostrare esiste x, tale che P(x) : scelgo E e dimostro P(E)
+è possibile concludere che esista una P(x) anche senza conoscere x
+Estiste (eliminaizione)
+si ragiona con un x generico
+la x deve essere una variabile non in uso in ipotesi o dimostrazioni
+deve essere una x di cui non conosciamo nulla
+le regole dell'esiste sono simili a quelle dell'or
+dobbiamo usare la regola di introduzione il più avanti possibile
+la regola di introduzione dell'or e dell'esiste sono le regole più difficili di applicare
+
+assioma del singoletto
+i singoletti sono gli insiemi che hanno un solo elemento 
+posso formare infiniti insiemi con la regola del singoletto
+posso creare infinti insiemi ma con un numero finito di elementi
+suppono di conoscere i numeri naturali (nella meta-matematica)
+il singoletto dice che per ogni x, esiste un insieme che contiene solo x
+assioma dell'infinito
+da codifica dei naturali si ottiene da un restringimento dell'insieme "n corsivo"
+ci sono diversi tipi di infiniti, alcuno sono più grandi di altri
+l'assioma dell'infinito
+assioma dell'insieme potenza
+definisce che esiste un insieme contenente tutti i sottoinsiemi dell'insieme dato
+la notazione è 2^x o "P corsivo"(x)
+la potenza rappresente il numero degli elementi dell'insieme contenente tutti i sottoinsiemi
+questo assioma è utile quando maneggiamo insiemi infiniti, senza creare il paradosso e senza utilizzare classi
+assioma di regolarità
+dice che ogni insieme non vuoto ha un elemento disgiunto
+con questo assioma si definisce che nessun insieme può appartenere a sè stesso e quindi possiamo cercare di misurare la taglia degli insiemi, detta cardinalità
+assimo di rimpiazzamento
+l'immagine di un insieme rispetto a una formula che descrive una funzione è ancora un insieme
+gli insiemi sono un linguaggio di programmazione per i matematici con cui rappresento dati
+gli assiomi da sapere bene, a memoria, a parte quelli discorsivi
+
+le coppie ordinate si indicano con le parentesi angolari
+le coppie ordinare non sono insiemi
+il prodotto cartesiamo ci da tutte le combinazioni delle coppie ordinate che posso ottenere con A e B
+una relazione fra A e B è un qualunue sottoinsieme di AxB
+esiste! vuol dire esiste ed è unico

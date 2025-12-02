@@ -1,0 +1,11 @@
+m
+c
+c+m tempo in cui la cache non sa rispondere, quindi la richiesta viene girata alla memoria che riesce a rispondere
+c<<m
+
+h = 9/10
+
+t = hc + (1-h)(c+m)
+t = hc + c + m -hc -hm
+t = c + m - hm
+t = c + (1-h)*m

@@ -1,0 +1,4 @@
+Architettura degli elaboratori 28 settembre
+PLA : array logico programmabile
+al suo interno ha tante porte and, or e not, nel quale posso interrompere i contatti che non mi servono rimuovendo i fusibili
+HDL è un linguaggio che simula un circuito

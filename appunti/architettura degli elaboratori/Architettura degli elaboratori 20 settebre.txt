@@ -1,0 +1,27 @@
+Architettura degli elaboratori 20 settembre
+prima macchina calcolatrice costruita da pascal in grado di fare solo somme e sottrazioni
+in seguito leibniz costruì una caclolatrice meccanica in grado di fare divisioni e moltiplicazioni
+differenza tra i due precedenti, e l'analytical engine, che quest'ultimo è programmabile
+primo programma scritto da Ada lovelace, considerata prima programmatrice
+Z1 prima macchina basata su relè, prima macchina elettrica
+Colossus : decodificatore basato sul pensiero di Alan Turing dirante la secondo guerra mondiale
+Eniac primo computer 1946, la programmazione era fatta spostando i cavi, e non con codice
+IAS prima calcolatrice basata sulla struttura odierna creata da Neumann con memoria, input, output, ALU etc..
+PDP-1 primo prodotto con i transistor, a differenza dei precedenti a valvole
+CDC 6600 prima macchina a lavorare in parallelo
+IBM 360 introduzione dei circuiti integrati e della possibilità di avere più programmi in memoria, multiprogrammazione
+VLSI identifica la possibilità di inserire grandi quantità di transistor in un unico chip
+IBM 5150 è il primo PC, grande diffusione, nasce MS-DOS
+
+
+Organizzazione degli Elaboratori
+bus dati, bus indirizzi e bus controlli
+registri generali vengono usati per fare i calcoli
+i registri dedicati sono il PC, IR e PSW
+il program counter tiene traccia dell'ultima istruzione che ho eseguito
+instruction register contiene il comando da eseguire
+memory data register contiene i dati che voglio trasferire alla memoria
+memori address register contiene gli indirizzi da mandare alla memoria
+unità di controllo decide cosa fare
+
+

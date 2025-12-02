@@ -1,0 +1,31 @@
+Architettura degli elaboratori lezione 25 settembre
+
+Usiamo una combinazione di più memorie per cercare di ottenere una memoria ideale, grande e veloce
+Un registro contiene al massimo 64 bit
+La cache è "invisibile", ovvero non presente nell'assember
+Le informazioni che uso più spesso le voglio sulla cache perché è più veloce della ram
+La ram è organizzata in sequenze di celle e non in file
+Località temporale è molto probabile che io accederò alla stessa cella che ho appena utilizzato
+Località spaziale vuol dire che molto probabilemnte accederò a una delle celle vicine a quella precedentemente utilizzata
+Tutto ciò che c'è nella cache, c'è anche nella ram
+
+m tempo di accesso in ram
+c tempo di accesso in cache
+
+m molto maggiore di c
+c deve essere minore di un ciclo di clock
+m potrebbe essere più grande
+
+h hit ratio: probabilità di trovare qualcosa nella cache
+
+senza cache l'accesso in memoria è uguale a m
+con la cache: o ci metto c, oppure se non trovo quello che stavo cercando, vado a cercarlo in ram
+quindi c+m, dove il tempo medio è (hc)+(1-h)(c+m) ovvero, c + (1-h) m
+la cache è a livelli
+Memoria di massa o non volatile
+Il disco rigido è basato sul magnatismo, piccoli campi magnetici memorizzano i dati
+La tecnica che utilizza dischi in parallelo si chiama RAID
+Per fare in modo che qualcuno riconosca se un file è stato corrotto mando qualche bit in più per diminuire l'errore
+
+Porte lofiche e Circuiti combinatori
+

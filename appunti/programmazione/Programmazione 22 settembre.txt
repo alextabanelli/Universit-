@@ -1,0 +1,5 @@
+Programmazione 22 settembre
+(double)(m+n+p+q)/4
+(m+n+p+q)/4.0
+(m+n+p+q)/(double)4
+((double) m+n+p+q)/4

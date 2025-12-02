@@ -1,0 +1,89 @@
+Es Architettura
+
+ADD %EAX,%EBX (sono registri)  //%EAX = %EAX+%EBX
+2345: 01010100001010101111010101   (registro, e il suo contenuto binario)
+
+CU:
+PC: 2345
+
+PC -> MAR -> address bus
+attivare la linea leggi del control bus
+
+la memoria mette sul data bus il contenuto dalla cella 2345
+dal data bus arriva al registro MDR
+
+la CU in modo che il valore vada dal MDR -> IR
+
+IR: 01010100001010101111010101 (questo valore viene interpretato come istruzione)
+
+la CU dice alla ALU di fare ADD dei numeri in ingresso, che sono contenuti nei registri
+per capire cosa mandare in ingresso alla ALU si usano i multiplexer, che sono guidati dalla CU
+anche l'uscita va su tutti i registri su cui potenzialmente posso scrivere
+
+la CU dice ai multiplexer di mandare le uscite di EAX e EBX all'ingresso della ALU
+
+la CU dice a EAX di memorizzare il risultato
+
+il program status word, dopo il conto
+la PSW azzera il flag di ZERO
+
+la CU dice al PC di prendere PC+1
+
+-------------------------------------------------------------------------------------------------------
+ADD %EAX,[%EBX] (sono registri)  //%EAX = %EAX+%EBX
+2345: 01010100001010101111010101   (registro, e il suo contenuto binario)
+
+PC: 2346
+
+PC -> MAR -> address bus
+attivare la linea leggi del control bus
+
+la memoria mette sul data bus il contenuto dalla cella 2346
+dal data bus arriva al registro MDR
+
+la CU in modo che il valore vada dal MDR -> IR
+
+IR: 01010100001010101111010101 (questo valore viene interpretato come istruzione)
+
+manda su MAR il valore di [EBX](3)
+(mandando ai multiplexer indicazioni di mandare l'uscita di EBX su MAR, attivando la scrittura MAR)
+
+attivo la linea leggi
+
+la memoria manda il valore contenuto nella locazione 3 (in questo caso 82) sul bus dati
+82 arriva su MDR
+
+la CU indica ai multiplexer di mandare il valore di EAX al primo ingresso della ALU
+la CU indica ai multiplexer di mandare il valore di [EBX] al secondo ingresso della ALU
+la CU indica alla ALU di fare la somma
+la CU indica al EAX di memorizzare il risultato
+la PSW azzera il flag di ZERO
+
+la CU dice a PC di prendere PC+1 (andare all'istruzione successiva)
+
+----------------------------------------------------------------------------------------------------
+
+JZ 123  jump if ZERO 123
+2347: 00101010010101111010
+
+PC: 2347
+
+PC -> MAR -> address bus
+attivare la linea leggi del control bus
+
+la memoria mette sul data bus il contenuto dalla cella 2345
+dal data bus arriva al registro MDR
+
+la CU in modo che il valore vada dal MDR -> IR
+
+IR: 01010100001010101111010101 (questo valore viene interpretato come istruzione)
+
+la CU controlla il valore del flag ZERO della PSW
+la CU vede che il flag è a zero e quindi l'ultima operazione non ha dato zero
+se fosse stato zero avrei messo 123 nel PR
+la CU dice a PC di prendere PC+1
+grazie a queste istruzioni posso avere dei salti
+
+
+la CU è un circuito combinatorio
+

@@ -1,0 +1,61 @@
+Logica 21 settembre
+per fare un'intersezione uso l'assioma della separazione, utilizzando come proprietà l'essere appartenenti ai due insiemi
+non possiamo intersecare infiniti insiemi perché non finiremmo mai di scrivere
+utilizzo un insieme per contenere tutti gli insiemi per intersecare, per esempio F
+se F è vuoto l'intersezione sarà rappresentata dall'insieme vuoto
+se F non è vuoto c'è almeno un insieme A che apertine a F
+uso un se allora  per identificare solo gli insiemi che stanno in F
+X sono gli elementi che appartengono all'insieme intersezione
+ci sono insiemi che possono contenere un numero infinito di altri insiemi
+le dimostrazioni usano un linguaggio preciso, non la lingua parlata, detto linguaggio artificiale
+le approssimazioni sono dettagli mancanti, a volte errori
+l'enunciato di un teorema è ciò che vogliamo dimostrare
+un teorema è un enunciato di cui abbiamo una dimostrazione
+una prova è una sequenza di passi che faccio per dimostrare il mio enunciato
+durante la dimostrazione si acquisiscono conoscenze e dati riguardo all'enunciato da dimostrare
+ci sono due tipi di regole per dimostrare, per eliminazione e di introduzione
+durante la dimostrazione le cose da dimostrare possono cambiare
+costrutto logico "per ogni" (introduzione)
+sia x un insieme fissato, scelgo un X generico senza sapere nulla delle sue proprietà
+se tu hai un'ipotesi che tutti gli x siano dispari, non posso fissare x
+fissare x si può fare solo per dimostrare un "per ogni" 
+sia x un insieme fissato si scrive "assume x : set"
+fissato si intende che non cambierà durante la dimostrazione
+costrutto logico "per ogni" (eliminazione)
+lo usi quando sai già che il per ogni vale
+lo uso quando so che tutti gli elementi hanno una proprietà, e quindi prendo quello che voglio
+usando quell'ipotesi allora quella proprietà vale per...
+implicazione : se allora (introduzione)
+se vale P, allora vale Q
+lo faccio ipotizzando che valga P e proseguo la dimostrazione
+implicazione : se allora (eliminazione)
+so già che se vale P, allora vale Q, però devo verificare che P sia vero
+dimostriamo Q, combinando due ipotesi, cioè P implica Q, e P sia vero
+per restringere il per ogni uso un se allora
+sia x tale che P(x) vuol dire, per ogni x, allora P(x) implica Q(x)
+il quindi indica che stiamo usando l'ultima cosa che abbiamo dimostrato
+se e solamente se (introduzione)
+è come dire che se P implica Q, allora anche Q implica P, quindi userò sue dimostrazioni
+per eliminazione scelgo io la direzione della freccia sapendo che quell'ipotesi sia verificata
+espansione  si usa ovvero, per estendere un'abbreviazione
+esplicitazione della conclusone si fa con dobbiamo dimostrare P quando abbiamo fatto molti passaggi intermedi
+prime dimostrazioni
+riflessibilità del sottoinsieme
+nelle dimostrazioni c'è sempre un per ogni, a volte nascosto
+sia x un insieme : per ogni
+x sottoinsieme di x, ovvero per ogni y, y appartiene a x, allora y appartiene a x è un'espansione
+tale che y appartiene a x (ipotesi) è un'implicazione introduzione
+le dimostrazioni verificano la conclusione solo nel caso in cui si verifichi l'ipotesi
+formalizzazione è il passaggio dalla lingua parlata ai simboli
+se dobbiamo dimostrare un per ogni possiamo fissare un qualcosa
+dentro l'assioma dell'estensionalità ci sono due eliminazioni del per ogni, una eliminazione del se e solamente se e un'altra eliminazione del se allora
+Qed : qued era dimostrandum, come volevasi dimostrare
+per assurdo vuol dire che ho dimostrato il falso, ovvero ciò che non vale mai
+il falso può essere dimostrabile, ma non ha regole di introduzione, ma invece una di eliminazione
+dall'assurdo possiamo concludere quello che vogliamo
+negazione è un'abbreviazione, non P vuol dire che P allora falso
+la dimostrazione della negazione non è per assurdo
+se concludo l'assurdo mi trovo in una situazione impossibile
+introduzione dell'and (^)
+per dimostrare l'and prima dimostriamo uno, e poi l'altro
+per eliminazione : sappiamo che valgono entrambe, quindi vale sia una che l'altra

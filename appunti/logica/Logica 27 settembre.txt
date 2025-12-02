@@ -1,0 +1,13 @@
+Logica 27 settembre
+le regole di introduzione ed eliminazione si usano solo quando quello che dobbiamo dimostrare cose logiche
+altrimenti dobbiamo utilizzare gli assiomi
+assioma dell'unione
+per ogni F (insiemi da unire) esiste X (insieme di tutti gli insiemi), per ogni Z, Z è un elemento dell'unione (X) se e solamente se esiste un insieme Y, tale che Y apartiene a uno degli insiemi da unire (F) e Z appartiene a Y
+assiamo or introduzione
+per dimostrare un or devo dimostrare uno dei due, però devo dichiarare entrambi
+quando si dimostra un or bisogna essere sicuri che una delle due parti sia dimostrabile altrimenti si finisce in un vicolo cieco
+l'intriduzione si sua per una dimostrazione, l'eliminazione con un'ipotesi
+assioma or eliminazione
+si fa facendo ipotesi, per casi, prima vale una, e poi l'altra
+le regole di eliminazione producono un output, quelle di introduzione elaborano l'input
+le ipotesi nei casi diversi si possono usare solo nei casi in cui vengono formulate, non anche negli altri

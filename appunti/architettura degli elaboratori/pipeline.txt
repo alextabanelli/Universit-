@@ -1,0 +1,92 @@
+1 fetch (F)
+2 decode (D)
+3 lettura operandi (L)
+4 esecuzione sulle ALU (E)
+5 scrittura risultato (S)
+
+assunzione : il ciclo di clock del processore col pipeline è 1/4 di quello senza pipeline
+
+tempo 1    2      3      4       5     6
+
+F istr1  istr2  istr3  istr4  istr5  istr6
+D        istr1  istr2  istr3  istr4  istr5
+L               istr1  istr2  istr3  istr4
+E                      istr1  istr2  istr3
+S                             istr1  istr2
+
+
+
+quando il pipeline è a regime ogni ciclo di clock eseguo un'istruzione
+in 34 cicli di clock del processore con pipeline eseguo 30 istruzioni
+34/4 = 8,5 "clock del processore singolo"
+il processore singolo ci mette 30 cicli di clock
+
+-------------------------------------------------------------------------------
+
+1 fetch (F)
+2 decode (D)
+3 lettura operandi (L)
+4 esecuzione sulle ALU (E)
+5 scrittura risultato (S)
+
+assunzione : il ciclo di clock del processore col pipeline è 1/4 di quello senza pipeline
+
+1) CMP AX, 0   //AX è un registro    CMP=compare
+2) BNE 5       //BNE=branch is not equal
+3) MOV BX, 1   // mette 1 in BX
+4) BR 6        //BR=branch 6   si muove al branch 6, salto
+5) MOV BX, 2   // mette 2 in BX
+6) ...
+
+assumo AX = 5   // questo ci fa fare un salto e quindi scartiamo le istruzioni già eseguite
+
+tempo 1    2      3      4       5     6      7      8      9
+
+F istr1  istr2  istr3  istr4  istr5  istr6  istr7  istr8  istr9
+D        istr1  istr2  istr3  istr4  istr5  istr6  istr7  istr8
+L               istr1  istr2  istr3  X      istr5  istr6  istr7
+E                      istr1  istr2  X      X      istr5  istr6
+S                             istr1  istr2  X      X      istr5
+
+
+
+per due cicli di clock non eseguo istruzioni a causa del salto, avrò una bolla (le X)
+
+
+non c'è una soluzione perfetta, ma possiamo limitare i danni
+cerchiamo subito nelle prime fasi di individuare i salti
+molti processori provano ad indovinare la condizione così da essere un anticipo nel caso scelto
+più spesso indovino meno tempo perdo, ci sono due tecniche per aumentare la probabilità di successo
+1) se il salto è all'indietro è probabile che venga fatto, statisticamente, dato che abbiamo molti loop 
+2) mi tengo due bit che mi tengono da conto se nelle ultime due volte ho fatto il salto
+
+--------------------------------------------------------------------------------------------------
+
+1 fetch (F)
+2 decode (D)
+3 lettura operandi (L)
+4 esecuzione sulle ALU (E)
+5 scrittura risultato (S)
+
+assunzione : il ciclo di clock del processore col pipeline è 1/4 di quello senza pipeline
+
+1) MOV AX, 8  
+2) CMP AX, 0      
+3) MOV BX, 1     
+4) ...
+
+assumo AX = 5   // questo ci fa fare un salto e quindi scartiamo le istruzioni già eseguite
+
+tempo 1    2      3      4       5         6      7      8      9
+
+F istr1  istr2  istr3  istr4   istr4    istr5  istr6
+D        istr1  istr2  istr3   istr3    istr4  istr5
+L               istr1  istr2   istr2    istr3  istr4
+E                      istr1   X        istr2  istr3
+S                              istr1    X      istr2    
+
+si crea una bolla perché vado a comparare registro prima di averlo assegnato, quindi devo aspettare di eseguire la linea 3 prima di eseguire la 2
+invertendo l'ordine della 2 e la 3 non avrei bolle
+
+
+

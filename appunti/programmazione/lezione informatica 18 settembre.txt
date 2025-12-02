@@ -1,0 +1,24 @@
+Programmazione 18 settembre
+
+Prima parte : programmazione imperativa in c++
+seconda parte : programmazione object-oriented in c++
+
+sito web https://www.unibo.it/sitoweb/cosimo.laneve/teachings
+
+CLion
+
+savitch
+
+l'astrazione è quando si conoscono i concetti per utilizzare un dispositivo, ma non si conosce il suo funzionamento
+
+la memoria principale è una sequanza di locazioni, ognuna contiene un byte.
+è come una strada
+l'indirizzo è un numero che identifica la memoria
+alcuni dati sono troppo grandi per stare in un byte, quindi accoppio i byte
+per scegliere i byte, l'istruzione che stiamo usando lo fa per noi
+l'istruzione sceglie quanti byte prendere in base alle specifiche dell'istruzione
+ES: addI 5 R3  ==> assembler, addizione di un intero (4 byte, quindi dal 5 al 8 ) dall'indirizzo 5 nel registro 3
+    add 5 R3  ==> assembler, addizione di un reale (8 byte, dal 5 al 12) dall'indirizzo 5 nel registro 3
+	
+assembler o codice bytecon
+viene tradotto in zerie uni

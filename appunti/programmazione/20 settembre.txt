@@ -1,0 +1,16 @@
+20 settembre
+entità che possono variare nel tempo
+lo stato è il valore che assume la variabile in un determinato momento
+c'è differenza tra il contenitore e il contenuto
+il contenitore ha un indirizzo
+il contenuto è un valore
+
+ereditarietà serve pr comprendere e verificare un codice molto lungo
+
+polimorfismo è quando una funzione può essere applicata in più contesti
+
+un identificatore sono nomi simbolici creati da chi programmatore associati ad un valore che può variare nel tempo
+nome associato a una locazione, una cella di memoria
+non usiamo direttamente l'indirizzo dell'identificatore perché non possiamo sapere sempre che indirizzo avrà, in quanto può cambiare
+la dichiarazione alloca una quantità di spazio sufficiente per contenere il dato in memoria
+l'area di lavoro è la parte dedicata agli identificatori, e per questo motivo deve contenere almeno tutti gli identificatori del programma

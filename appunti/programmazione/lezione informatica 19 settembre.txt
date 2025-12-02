@@ -1,0 +1,9 @@
+19 settembre
+
+il linker collega i file che compongono un programma
+il linker collega la libreria quando viene inclusa con #include
+
+un programma è una sequenza di istruzioni scritta in un linguaggio di programmazione
+un algoritmo è una sequenza di istruzioni che risolve un problema
+un linguaggio di programmazione è un programma che può essere eseguito da un compilatore
+implementazione è la traduzuone di un algoritmo in un linguaggio
