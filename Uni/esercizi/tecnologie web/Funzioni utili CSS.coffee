@@ -417,5 +417,5 @@ Operazioni su immagini{
 
 
 Operazioni sulle tabelle{
-    
+    prova linux
 }
