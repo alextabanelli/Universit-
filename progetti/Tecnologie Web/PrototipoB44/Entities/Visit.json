@@ -1,0 +1,104 @@
+{
+  "name": "Visit",
+  "type": "object",
+  "properties": {
+    "title": {
+      "type": "string",
+      "description": "Name of the visit/tour"
+    },
+    "description": {
+      "type": "string",
+      "description": "Brief description of the visit"
+    },
+    "museum_name": {
+      "type": "string",
+      "description": "Name of the museum"
+    },
+    "duration_minutes": {
+      "type": "number",
+      "description": "Estimated duration in minutes"
+    },
+    "cover_image": {
+      "type": "string",
+      "description": "URL of cover image"
+    },
+    "artwork_ids": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Ordered list of artwork IDs in this visit"
+    },
+    "map_layout": {
+      "type": "object",
+      "description": "2D map configuration with room positions",
+      "properties": {
+        "width": {
+          "type": "number"
+        },
+        "height": {
+          "type": "number"
+        },
+        "rooms": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              },
+              "x": {
+                "type": "number"
+              },
+              "y": {
+                "type": "number"
+              },
+              "width": {
+                "type": "number"
+              },
+              "height": {
+                "type": "number"
+              }
+            }
+          }
+        },
+        "facilities": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string"
+              },
+              "x": {
+                "type": "number"
+              },
+              "y": {
+                "type": "number"
+              }
+            }
+          }
+        }
+      }
+    },
+    "language": {
+      "type": "string",
+      "enum": [
+        "it",
+        "en"
+      ],
+      "default": "it"
+    },
+    "is_active": {
+      "type": "boolean",
+      "default": true
+    }
+  },
+  "required": [
+    "title",
+    "museum_name"
+  ]
+}

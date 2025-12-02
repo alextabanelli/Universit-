@@ -1,0 +1,45 @@
+{
+  "name": "Quiz",
+  "type": "object",
+  "properties": {
+    "visit_id": {
+      "type": "string",
+      "description": "Reference to the visit"
+    },
+    "questions": {
+      "type": "array",
+      "description": "List of MCQ questions",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "question": {
+            "type": "string"
+          },
+          "options": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "correct_index": {
+            "type": "number"
+          },
+          "artwork_id": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "is_active": {
+      "type": "boolean",
+      "default": true
+    }
+  },
+  "required": [
+    "visit_id",
+    "questions"
+  ]
+}

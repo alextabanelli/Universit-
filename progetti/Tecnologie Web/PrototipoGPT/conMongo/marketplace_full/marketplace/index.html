@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>ArtAround - Marketplace & Editor (18-27 mock)</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header>
+    <h1>ArtAround — Marketplace & Editor (mock)</h1>
+    <div id="auth">
+      <select id="userSelect"></select>
+      <button id="logoutBtn">Logout</button>
+    </div>
+  </header>
+
+  <main>
+    <section id="museumPanel" class="card">
+      <h2>Seleziona Museo</h2>
+      <select id="museumSelect"></select>
+    </section>
+
+    <section id="marketPanel" class="card">
+      <h2>Marketplace — Contenuti</h2>
+      <div class="controls">
+        <input id="searchInput" placeholder="Cerca...">
+        <select id="filterTone">
+          <option value="">Tutte le tonalità</option>
+          <option value="infantile">Infantile</option>
+          <option value="semplice">Semplice</option>
+          <option value="medio">Medio</option>
+          <option value="avanzato">Avanzato</option>
+        </select>
+        <button id="newItemBtn">Nuovo Item</button>
+      </div>
+      <div id="itemsList" class="grid"></div>
+    </section>
+
+    <section id="editorPanel" class="card hidden">
+      <h2>Editor Item</h2>
+      <form id="itemForm">
+        <label>Universal ID (opera): <input id="itemObjectId" required></label>
+        <label>Titolo: <input id="itemTitle" required></label>
+        <label>Autore contenuto: <input id="itemAuthor"></label>
+        <label>Licenza: <input id="itemLicense"></label>
+        <label>Prezzo (€): <input id="itemPrice" type="number" step="0.01"></label>
+        <label>Durata (s): <input id="itemDuration" type="number"></label>
+        <label>Immagine (url): <input id="itemImage"></label>
+        <fieldset>
+          <legend>Testi (3s / 15s / 40s) e tono</legend>
+          <label>Tono:
+            <select id="itemTone">
+              <option value="infantile">Infantile</option>
+              <option value="semplice">Semplice</option>
+              <option value="medio">Medio</option>
+              <option value="avanzato">Avanzato</option>
+            </select>
+          </label>
+          <label>3s: <textarea id="text3"></textarea></label>
+          <label>15s: <textarea id="text15"></textarea></label>
+          <label>40s: <textarea id="text40"></textarea></label>
+        </fieldset>
+        <div class="form-actions">
+          <button type="submit" id="saveItemBtn">Salva</button>
+          <button type="button" id="publishBtn">Pubblica</button>
+          <button type="button" id="cancelEditBtn">Annulla</button>
+        </div>
+      </form>
+    </section>
+
+    <section id="visitsPanel" class="card">
+      <h2>Visite</h2>
+      <div class="controls">
+        <button id="newVisitBtn">Nuova Visita</button>
+      </div>
+      <div id="visitsList"></div>
+    </section>
+
+    <section id="syncPanel" class="card">
+      <h2>Sessione Sincronizzata (Docente)</h2>
+      <label>Visita da sincronizzare:
+        <select id="syncVisitSelect"></select>
+      </label>
+      <label>Codice mnemonico: <input id="sessionCode"></label>
+      <div class="form-actions">
+        <button id="startSessionBtn">Start Session</button>
+        <button id="stopSessionBtn" disabled>Stop Session</button>
+      </div>
+      <div id="connectedStudents">Studenti connessi: <span id="studentCount">0</span></div>
+      <div id="sessionLog"></div>
+    </section>
+  </main>
+
+  <footer>
+    <small>Prototipo locale — seed data incluso. Collegare a backend reale quando pronto.</small>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>

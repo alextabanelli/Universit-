@@ -1,0 +1,164 @@
+{
+  "name": "Item",
+  "type": "object",
+  "properties": {
+    "universal_id": {
+      "type": "string",
+      "description": "Universal object identifier for cross-museum linking"
+    },
+    "title": {
+      "type": "string",
+      "description": "Artwork title"
+    },
+    "author": {
+      "type": "string"
+    },
+    "year": {
+      "type": "string"
+    },
+    "style": {
+      "type": "string"
+    },
+    "museum_id": {
+      "type": "string",
+      "description": "Reference to museum"
+    },
+    "recognition_image": {
+      "type": "string",
+      "description": "Image URL for artwork recognition"
+    },
+    "thumbnail": {
+      "type": "string"
+    },
+    "descriptions": {
+      "type": "object",
+      "description": "Multiple description variants by duration and tone",
+      "properties": {
+        "3s": {
+          "type": "object",
+          "properties": {
+            "infantile": {
+              "type": "string"
+            },
+            "simple": {
+              "type": "string"
+            },
+            "medium": {
+              "type": "string"
+            },
+            "advanced": {
+              "type": "string"
+            }
+          }
+        },
+        "15s": {
+          "type": "object",
+          "properties": {
+            "infantile": {
+              "type": "string"
+            },
+            "simple": {
+              "type": "string"
+            },
+            "medium": {
+              "type": "string"
+            },
+            "advanced": {
+              "type": "string"
+            }
+          }
+        },
+        "40s": {
+          "type": "object",
+          "properties": {
+            "infantile": {
+              "type": "string"
+            },
+            "simple": {
+              "type": "string"
+            },
+            "medium": {
+              "type": "string"
+            },
+            "advanced": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "metadata": {
+      "type": "object",
+      "properties": {
+        "language": {
+          "type": "string",
+          "default": "it"
+        },
+        "language_level": {
+          "type": "string",
+          "enum": [
+            "A1",
+            "A2",
+            "B1",
+            "B2",
+            "C1",
+            "C2"
+          ]
+        },
+        "duration_seconds": {
+          "type": "number"
+        },
+        "license": {
+          "type": "string",
+          "enum": [
+            "CC0",
+            "CC-BY",
+            "CC-BY-SA",
+            "CC-BY-NC",
+            "proprietary"
+          ]
+        },
+        "price": {
+          "type": "number",
+          "default": 0
+        },
+        "currency": {
+          "type": "string",
+          "default": "EUR"
+        }
+      }
+    },
+    "availability": {
+      "type": "string",
+      "enum": [
+        "public",
+        "private",
+        "unlisted"
+      ],
+      "default": "private"
+    },
+    "is_published": {
+      "type": "boolean",
+      "default": false
+    },
+    "position_x": {
+      "type": "number"
+    },
+    "position_y": {
+      "type": "number"
+    },
+    "room_id": {
+      "type": "string"
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  },
+  "required": [
+    "title",
+    "museum_id"
+  ]
+}

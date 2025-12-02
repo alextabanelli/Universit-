@@ -1,0 +1,68 @@
+{
+  "name": "Artwork",
+  "type": "object",
+  "properties": {
+    "title": {
+      "type": "string",
+      "description": "Title of the artwork"
+    },
+    "author": {
+      "type": "string",
+      "description": "Artist/author name"
+    },
+    "year": {
+      "type": "string",
+      "description": "Year or period of creation"
+    },
+    "style": {
+      "type": "string",
+      "description": "Artistic style/movement"
+    },
+    "image_url": {
+      "type": "string",
+      "description": "Image of the artwork"
+    },
+    "room_id": {
+      "type": "string",
+      "description": "Room ID where artwork is located"
+    },
+    "position_x": {
+      "type": "number",
+      "description": "X position on map"
+    },
+    "position_y": {
+      "type": "number",
+      "description": "Y position on map"
+    },
+    "descriptions": {
+      "type": "object",
+      "description": "Multiple description variants",
+      "properties": {
+        "brief": {
+          "type": "string",
+          "description": "Short description (dimmi di meno)"
+        },
+        "standard": {
+          "type": "string",
+          "description": "Standard description"
+        },
+        "detailed": {
+          "type": "string",
+          "description": "Detailed description (dimmi di pi\u00f9)"
+        },
+        "simple": {
+          "type": "string",
+          "description": "Simplified version (troppo semplice)"
+        }
+      }
+    },
+    "visit_id": {
+      "type": "string",
+      "description": "Reference to parent visit"
+    }
+  },
+  "required": [
+    "title",
+    "visit_id"
+  ]
+}

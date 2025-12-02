@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>ArtAround - Navigator (mock)</title>
+  <link rel="stylesheet" href="styles.css"/>
+</head>
+<body>
+  <header>
+    <h1>ArtAround — Navigator (mock)</h1>
+    <div id="navAuth">
+      <select id="navUserSelect"></select>
+      <button id="joinSessionBtn">Join Session</button>
+    </div>
+  </header>
+
+  <main>
+    <section id="visitSelect" class="card">
+      <h2>Visite Disponibili</h2>
+      <div id="visitListNav"></div>
+      <div class="controls">
+        <label>Inserisci codice sessione: <input id="joinCode" placeholder="es. Fenice Rossa"></label>
+      </div>
+    </section>
+
+    <section id="player" class="card hidden">
+      <h2 id="visitTitle">Visita</h2>
+      <div id="mapMock" class="map">Mappa 2D mock (icone)</div>
+      <div id="currentItem" class="itemCard">
+        <img id="ciImg" src="" alt="">
+        <div>
+          <strong id="ciTitle"></strong>
+          <div class="muted" id="ciMeta"></div>
+          <p id="ciText"></p>
+        </div>
+      </div>
+      <div class="controls voice-buttons">
+        <button id="btnPrev">Precedente</button>
+        <button id="btnNext">Prossimo</button>
+        <button id="btnMore">Dimmi di più</button>
+        <button id="btnLess">Dimmi di meno</button>
+        <button id="btnSimple">Più semplice</button>
+        <button id="btnHard">Troppo semplice</button>
+      </div>
+      <div class="controls">
+        <button id="btnPlay">Riproduci Audio (TTS)</button>
+      </div>
+      <div id="quizArea" class="hidden">
+        <h3>Quiz</h3>
+        <div id="quizContainer"></div>
+      </div>
+    </section>
+  </main>
+
+  <footer><small>Navigator mock — usa Web Speech Synthesis per TTS.</small></footer>
+  <script src="app.js"></script>
+</body>
+</html>

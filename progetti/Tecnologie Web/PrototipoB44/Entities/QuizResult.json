@@ -1,0 +1,52 @@
+{
+  "name": "QuizResult",
+  "type": "object",
+  "properties": {
+    "session_id": {
+      "type": "string",
+      "description": "Reference to the session"
+    },
+    "quiz_id": {
+      "type": "string",
+      "description": "Reference to the quiz"
+    },
+    "user_email": {
+      "type": "string",
+      "description": "User who took the quiz"
+    },
+    "answers": {
+      "type": "array",
+      "description": "User's answers",
+      "items": {
+        "type": "object",
+        "properties": {
+          "question_id": {
+            "type": "string"
+          },
+          "selected_index": {
+            "type": "number"
+          }
+        }
+      }
+    },
+    "score": {
+      "type": "number",
+      "description": "Number of correct answers"
+    },
+    "total_questions": {
+      "type": "number"
+    },
+    "percentage": {
+      "type": "number"
+    },
+    "completed_at": {
+      "type": "string",
+      "format": "date-time"
+    }
+  },
+  "required": [
+    "session_id",
+    "quiz_id",
+    "user_email"
+  ]
+}
