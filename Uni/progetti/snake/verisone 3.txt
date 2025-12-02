@@ -1,0 +1,139 @@
+#include <iostream>   // Per input/output standard
+#include <fstream>    // Per la gestione dei file
+#include <curses.h>   // Per gestire l'interfaccia utente con ncurses
+#include <cstring>    // Per operazioni sulle stringhe
+#include <ctime>      // Per generare numeri casuali basati sull'orario
+
+using namespace std;
+
+const string CLASSIFICA_FILE = "classifica.txt"; // Nome del file che memorizza la classifica
+const int MAX_CLASSIFICA = 5; // Numero massimo di voci nella classifica
+
+// Classe per la gestione del menu
+class Menu {
+private:
+    int evidenziato;
+    const char * scelte[4] = { "Nuova Partita", "Visualizza Classifica", "Cancella Classifica", "Esci" };
+
+public:
+    Menu() : evidenziato(0) {}
+
+    void mostraClassifica() {
+        ifstream file(CLASSIFICA_FILE);
+        clear();
+        mvprintw(2, 2, "Classifica:");
+        int y = 4;
+        if (file.is_open()) {
+            int punteggio;
+            char nome[20];
+            int i = 1;
+            while (file >> nome >> punteggio) {
+                mvprintw(y++, 4, "%d) %s - %d", i++, nome, punteggio);
+            }
+            file.close();
+        }
+        mvprintw(y + 2, 2, "Premi un tasto per tornare al menu...");
+        refresh();
+        getch();
+    }
+
+    void aggiornaClassifica(int nuovoPunteggio, const char* nome) {
+        ifstream file(CLASSIFICA_FILE);
+        int punteggi[MAX_CLASSIFICA + 1] = {0};
+        char nomi[MAX_CLASSIFICA + 1][20] = {{0}};
+        int count = 0;
+        if (file.is_open()) {
+            while (file >> nomi[count] >> punteggi[count]) {
+                count++;
+            }
+            file.close();
+        }
+        punteggi[count] = nuovoPunteggio;
+        strncpy(nomi[count], nome, 19);
+        count++;
+        for (int i = 0; i < count - 1; i++) {
+            for (int j = i + 1; j < count; j++) {
+                if (punteggi[j] > punteggi[i]) {
+                    int temp = punteggi[i];
+                    punteggi[i] = punteggi[j];
+                    punteggi[j] = temp;
+                    char tempNome[20];
+                    strcpy(tempNome, nomi[i]);
+                    strcpy(nomi[i], nomi[j]);
+                    strcpy(nomi[j], tempNome);
+                }
+            }
+        }
+        ofstream outFile(CLASSIFICA_FILE);
+        for (int i = 0; i < min(count, MAX_CLASSIFICA); i++) {
+            outFile << nomi[i] << " " << punteggi[i] << endl;
+        }
+        outFile.close();
+    }
+
+    void cancellaClassifica() {
+        ofstream outFile(CLASSIFICA_FILE, ios::trunc);
+        outFile.close();
+    }
+
+    void avvia() {
+        int scelta;
+        initscr();
+        noecho();
+        curs_set(0);
+        keypad(stdscr, TRUE);
+        while (true) {
+            clear();
+            mvprintw(2, 2, "Menu");
+            for (int i = 0; i < 4; i++) {
+                if (i == evidenziato) attron(A_REVERSE);
+                mvprintw(4 + i, 4, "%s", scelte[i]);
+                if (i == evidenziato) attroff(A_REVERSE);
+            }
+            refresh();
+            scelta = getch();
+            switch (scelta) {
+                case KEY_UP:
+                    evidenziato = (evidenziato == 0) ? 3 : evidenziato - 1;
+                    break;
+                case KEY_DOWN:
+                    evidenziato = (evidenziato == 3) ? 0 : evidenziato + 1;
+                    break;
+                case 10:
+                    if (evidenziato == 0) {
+                        clear();
+                        mvprintw(2, 2, "Inserisci il tuo nome: ");
+                        char nome[20];
+                        echo();
+                        curs_set(1);
+                        getnstr(nome, 19);
+                        noecho();
+                        curs_set(0);
+                        int punteggio = rand() % 1000;
+                        aggiornaClassifica(punteggio, nome);
+                    } else if (evidenziato == 1) {
+                        mostraClassifica();
+                    } else if (evidenziato == 2) {
+                        cancellaClassifica();
+                    } else {
+                        endwin();
+                        return;
+                    }
+                    break;
+                case 'T':
+                case 't':
+                    endwin();
+                    return;
+            }
+        }
+        endwin();
+    }
+};
+
+// Funzione principale
+int main() {
+    srand(time(nullptr));
+    Menu menu;
+    menu.avvia();
+    return 0;
+}
