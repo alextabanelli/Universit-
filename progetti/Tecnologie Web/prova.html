@@ -71,150 +71,131 @@
             --card-padding: 25px 20px; /* Spazio per i buchi della pellicola */
         }
 
-        /* --- TEMA ARTISTIC / CELESTIAL VIBRANCE --- */
+       /* --- TEMA ARTISTICO: "CAPPELLA SISTINA" (File Locali) --- */
         body.artistic-theme {
-            /* Blu Michelangelo acceso */
-            --bg-color: #4aa3df; 
-            --text-color: #fff;
-            /* Cornice doppia dorata stile quadro antico */
-            --card-border: 4px double #ffd700; 
-            --nav-bg: #2c3e50;
-            --font-family: 'Cinzel Decorative', serif;
-            --card-radius: 8px; /* Leggermente arrotondato */
-            --icon-box-radius: 50%;
-            /* Ombra forte per staccare le card dal cielo */
-            --card-shadow: 0 8px 16px rgba(0,0,0,0.4), 0 0 10px rgba(255, 255, 255, 0.3);
-            --text-shadow: 1px 1px 2px rgba(0,0,0,0.6);
-            --title-color: #ffd700;
-            --card-padding: 15px 20px; /* Padding interno bilanciato */
+            --nav-height: 80px;
+            /* Ombra testo nera molto forte per leggibilità */
+            --text-shadow-strong: 2px 2px 0 #000, -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+            font-family: 'Cinzel Decorative', serif;
+            color: #fff;
+            margin: 0;
         }
 
-        /* SFONDO: Cielo Azzurro e Nuvole Bianche (Stile Paradiso) */
+        /* 1. SFONDO TOTALE (File: sfondo.jpg) */
         body.artistic-theme::before {
-            content: ''; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            /* Immagine soffitto nuvoloso luminoso */
-            background-image: url('https://images.unsplash.com/photo-1623150033062-8566144e1373?q=80&w=1974&auto=format&fit=crop');
-            background-size: cover; background-position: center;
-            /* Aumentiamo la luminosità per l'effetto "Azzurro Acceso" */
-            filter: brightness(1.1) saturate(1.2);
-            z-index: -1; pointer-events: none;
+            content: '';
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            /* COLLEGO L'IMMAGINE SCARICATA */
+            background-image: url(sfondo.png);
+            background-size: cover;
+            background-position: center top;
+            background-attachment: fixed; /* L'affresco resta fermo */
+            z-index: -2;
         }
 
-        /* Titolo: Oro Lucente */
+        /* Overlay scuro leggero */
+        body.artistic-theme::after {
+            content: '';
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.25);
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        /* HEADER E TITOLI */
+        body.artistic-theme .top-header { background: transparent; }
+        body.artistic-theme .hero { text-align: center; padding-top: 40px; margin-bottom: 20px; }
+
         body.artistic-theme .hero-title {
-            font-size: 2.6rem;
-            color: #ffd700;
-            /* Outline scuro per leggere bene su cielo chiaro */
-            text-shadow: 2px 2px 0px #8b4513, 0 0 15px rgba(255,255,255,0.8);
-            font-weight: 700;
-            margin-top: 10px;
+            font-size: 2.8rem;
+            color: #ffecb3; /* Oro pallido */
+            text-shadow: 0 0 15px rgba(0,0,0,0.9), var(--text-shadow-strong);
+            margin-bottom: 5px; letter-spacing: 1px;
         }
 
         body.artistic-theme .hero-subtitle {
-            background: rgba(255, 255, 255, 0.9);
-            color: #8b4513;
-            padding: 5px 15px;
-            border-radius: 20px;
-            border: 2px solid #ffd700;
-            font-weight: bold;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+            background: rgba(0, 0, 0, 0.7);
+            color: #fff; padding: 5px 15px; border-radius: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            font-family: 'Cinzel', serif; font-size: 0.9rem;
+            display: inline-block; text-transform: uppercase;
         }
 
-        /* --- CARD STYLE --- */
+        /* 3. CARD (File: cielo.jpg) */
         body.artistic-theme .card {
-            border: var(--card-border);
-            border-radius: var(--card-radius);
-            box-shadow: var(--card-shadow);
-            /* Aggiungiamo margine laterale per rimpicciolirle e vedere lo sfondo */
-            margin-left: 15px;
-            margin-right: 15px;
-            margin-bottom: 15px; /* Spazio tra le card */
+            /* COLLEGO L'IMMAGINE SCARICATA */
+            background-image: url(cielo.png);
+            background-size: cover; background-position: center;
             
-            position: relative;
-            overflow: hidden;
-            transition: transform 0.3s ease;
-            backdrop-filter: blur(0px); /* Colori pieni, niente sfocatura sfondo */
+            /* BORDO: Cornice pietra */
+            border: none;
+            border-top: 4px solid #d7ccc8; /* Luce sopra */
+            border-bottom: 4px solid #3e2723; /* Ombra sotto */
+            border-left: 2px solid #8d6e63;
+            border-right: 2px solid #8d6e63;
+            
+            box-shadow: inset 0 0 20px rgba(0,0,0,0.5), 0 15px 30px rgba(0,0,0,0.9);
+            border-radius: 2px;
+            margin: 20px 15px; /* Più spazio verticale */
+            padding: 30px 20px;
+            position: relative; overflow: hidden;
         }
 
-        body.artistic-theme .card:hover {
-            transform: scale(1.02);
+        /* Rimuovi colori vecchi */
+        body.artistic-theme .card.orange, body.artistic-theme .card.purple, 
+        body.artistic-theme .card.blue, body.artistic-theme .card.green, 
+        body.artistic-theme .card.red, body.artistic-theme .card.cyan {
+            background-color: transparent; 
         }
 
-        /* --- COLORI VIBRANTI (Ripristinati) --- */
-        /* Usiamo gradienti ricchi per simulare le vesti dipinte */
-
-        /* Arancione (Vesti luminose) */
-        body.artistic-theme .card.orange { 
-            background: linear-gradient(135deg, #ff9800, #e65100); 
-        }
-        /* Viola (Drappeggi scuri) */
-        body.artistic-theme .card.purple { 
-            background: linear-gradient(135deg, #9c27b0, #4a148c); 
-        }
-        /* Blu (Lapislazzuli scuro per contrasto con sfondo chiaro) */
-        body.artistic-theme .card.blue { 
-            background: linear-gradient(135deg, #1565c0, #0d47a1); 
-        }
-        /* Verde (Smeraldo) */
-        body.artistic-theme .card.green { 
-            background: linear-gradient(135deg, #43a047, #1b5e20); 
-        }
-        /* Rosso (Porpora cardinalizia) */
-        body.artistic-theme .card.red { 
-            background: linear-gradient(135deg, #e53935, #b71c1c); 
-        }
-        /* Ciano/Azzurro (Vesti chiare) */
-        body.artistic-theme .card.cyan { 
-            background: linear-gradient(135deg, #00acc1, #006064); 
-        }
-        /* Giallo (Oro) */
-        body.artistic-theme .card.yellow { 
-            background: linear-gradient(135deg, #fbc02d, #f57f17); 
-        }
-
-        /* Texture "pennellata" leggera sopra i colori */
-        body.artistic-theme .card::before {
-            content: ''; position: absolute; top:0; left:0; right:0; bottom:0;
-            background-image: url('https://www.transparenttextures.com/patterns/canvas-1.png');
-            opacity: 0.15; pointer-events: none;
-        }
-
-        /* Icone Medaglioni */
+        /* 4. ICONE (File: oro.jpg) */
         body.artistic-theme .icon-box {
-            background: #fff !important; /* Sfondo bianco per pulizia */
-            border: 2px solid #ffd700;
-            color: #333; /* Icona scura */
-            box-shadow: 0 2px 5px rgba(0,0,0,0.3);
-            width: 55px; height: 55px;
+            width: 65px; height: 65px;
+            /* COLLEGO L'IMMAGINE SCARICATA */
+            background-image: url(oro.png);
+            background-size: cover;
+            border: 2px solid #fff;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.7);
+            border-radius: 50%;
+            display: flex; justify-content: center; align-items: center;
+            font-size: 28px;
+            color: #3e2723; /* Icona scura su oro */
+            text-shadow: none; z-index: 2;
         }
-        
-        /* I colori delle icone si adattano al tema della card */
-        body.artistic-theme .card.orange .icon-box { color: #e65100; }
-        body.artistic-theme .card.purple .icon-box { color: #4a148c; }
-        body.artistic-theme .card.blue .icon-box { color: #0d47a1; }
-        body.artistic-theme .card.green .icon-box { color: #1b5e20; }
-        body.artistic-theme .card.red .icon-box { color: #b71c1c; }
 
-        /* Testi */
+        /* TESTI */
+        body.artistic-theme .card-content { z-index: 2; }
         body.artistic-theme .card-title {
-            color: white;
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
-            font-size: 1.25rem;
+            font-size: 1.6rem; color: #fff;
+            text-shadow: var(--text-shadow-strong);
+            margin-bottom: 4px;
         }
-        
         body.artistic-theme .card-desc {
-            color: rgba(255,255,255,0.9);
-            font-family: 'Cinzel', serif;
-            font-weight: 600;
-            font-size: 0.85rem;
+            font-family: 'Cinzel', serif; font-size: 0.95rem;
+            color: #f5f5f5; font-weight: bold;
+            text-shadow: 2px 2px 4px #000;
         }
 
-        /* Navbar Scura ma elegante */
+        /* 5. NAVBAR (File: marmo.jpg) */
         body.artistic-theme .bottom-nav {
-            background: #1a1a1a;
-            border-top: 3px solid #ffd700;
+            /* COLLEGO L'IMMAGINE SCARICATA */
+            background-image: url(marmo.png);
+            background-size: cover;
+            border-top: 4px solid #a1887f;
+            box-shadow: 0 -10px 20px rgba(0,0,0,0.9);
+            padding-bottom: 25px;
         }
-        body.artistic-theme .nav-item.active { color: #ffd700; }
+
+        body.artistic-theme .nav-item {
+            color: #fff; text-shadow: 1px 1px 3px #000;
+            font-weight: bold;
+        }
+        body.artistic-theme .nav-item.active {
+            color: #ffd700; /* Oro per l'attivo */
+            transform: scale(1.1);
+        }
 
 
 
@@ -778,7 +759,8 @@
                 document.querySelector('.style-btn.vintage').classList.add('active');
             } else if (theme === 'cinema') {
                 body.classList.add('cinema-theme');
-                document.querySelector('.style-btn.cinema').classList.add('active');
+                document.querySelector('.style-btn.cinema').classList.add('active');                
+
             } else if (theme === 'comics') {
                 body.classList.add('comics-theme');
                 document.querySelector('.style-btn.comics').classList.add('active');
