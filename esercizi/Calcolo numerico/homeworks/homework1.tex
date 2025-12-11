@@ -1,0 +1,218 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[italian]{babel}
+\usepackage{geometry}
+\geometry{top=2.5cm, bottom=2.5cm, left=2.5cm, right=2.5cm}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{graphicx}
+\usepackage{parskip}
+\usepackage{hyperref}
+\usepackage{enumitem}
+\usepackage{microtype}
+\usepackage{minted}
+
+\title{\vspace{-1cm}Calcolo Numerico 2025-26\\[6pt]
+\large \textbf{Homework 1 -- Zeri di funzione}}
+\author{}
+\date{}
+
+\begin{document}
+\maketitle
+\section*{Consegna}
+\noindent Zeri di funzione: utilizzare il metodo di bisezione, il metodo delle iterazioni di punto fisso e il metodo di Newton per il calcolo dello zero delle seguenti funzioni. Disegnare il grafico della funzione per localizzare lo zero e scegliere sia l'intervallo in cui applicare la bisezione che il punto iniziale per gli altri due algoritmi.
+
+\bigskip
+
+\begin{enumerate}[left=0pt,label=\textbf{\arabic*.}]
+  \item \(f(x)=\ln(x+1)-x\). \quad ( \(g(x)=\ln(x+1)\) )
+  \medskip
+
+  \item \(f(x)=x^{2}-\cos(x)\). \quad ( \(g(x)=\sqrt{\cos(x)}\) )
+  \medskip
+
+  \item \(f(x)=\sin(x)-x^{2}\). \quad ( \(g(x)=2\sin(x)\) )
+  \medskip
+
+  \item \(f(x)=e^{x}-3x\). \quad ( \(g(x)=\tfrac{1}{3}e^{x}\) )
+  \medskip
+\end{enumerate}
+
+\bigskip
+
+\section*{Codici degli algoritmi}
+\subsection*{Metodo di bisezione}
+
+\begin{minted}[fontsize=\small, linenos, frame=single]{python}
+    def metodo_bisezione(f, a, b, max_iter, epsilon):
+    cond = True
+    i = 0
+    if f(a) * f(b) >= 0.0:
+        return None, 0
+    while cond and i < max_iter:
+        c = (a + b) / 2
+        if abs(f(c)) < epsilon:
+            cond = False
+        if cond and f(a) * f(c) < 0:
+            b = c
+        elif cond:
+            a = c
+        i = i + 1 
+    return c, i
+\end{minted}
+
+\bigskip
+\bigskip
+\bigskip
+\bigskip
+
+
+\subsection*{Metodo delle iterazioni di punto fisso}
+
+\begin{minted}[fontsize=\small, linenos, frame=single]{python}
+    def metodo_punto_fisso(g, x0, max_iter, epsilon1, epsilon2):
+    i = 0
+    cond = True
+    xk = x0
+    while cond and i < max_iter:
+        x = g(xk)
+        if abs(x - xk) < epsilon1 or abs(f(x)) < epsilon2:
+            cond = False
+        xk = x
+        i = i + 1
+    return xk, i
+\end{minted}
+
+
+\subsection*{Metodo di Newton}
+
+\begin{minted}[fontsize=\small, linenos, frame=single]{python}
+   def metodo_newton(f, df, x0, max_iter, epsilon1, epsilon2):
+    i = 0
+    cond = True
+    xk = x0
+    if abs(df(xk)) < 1e-10:
+        return None, 0
+    while cond and i < max_iter:
+        xk1 = xk - f(xk) / df(xk)
+        if abs(xk1 - xk) < epsilon1 or abs(f(xk1)) < epsilon2:
+            cond = False
+        xk = xk1
+        i = i + 1
+    return xk, i
+\end{minted}
+
+\bigskip
+\bigskip
+
+\section*{Risultati delle esecuzioni}
+\subsection*{Prima funzione:  \(f(x)=x^{2}-\cos(x)\). \quad ( \(g(x)=\sqrt{\cos(x)}\) )}
+
+
+\begin{table}[h!]
+\centering
+\begin{tabular}{|c|c|c|c|c|c|}
+\hline
+\textbf{Metodo} & \textbf{Punto iniziale} & \textbf{Intervallo} & \textbf{Epsilon} & \textbf{Soluzione} & \textbf{Iterazioni}  \\ \hline
+ Bisezione   & 0   &  [0,1]  & \(10^{-6}\) & 0.824131965637207 & 20   \\ \hline
+ Punto Fisso & 0   &  [0,1]  & \(10^{-6}\) & 0.824132109264407 & 18   \\ \hline
+ Newton      & 0   &  [0,1]  & \(10^{-6}\) &  &     \\ \hline
+\end{tabular}
+\end{table}
+
+
+
+\begin{table}[h!]
+\centering
+\begin{tabular}{|c|c|c|c|c|c|}
+\hline
+\textbf{Metodo} & \textbf{Punto iniziale} & \textbf{Intervallo} & \textbf{Epsilon} & \textbf{Soluzione} & \textbf{Iterazioni}  \\ \hline
+ Bisezione   & 0.5   &  [0,1]  & \(10^{-6}\) & 0.824131965637207 & 20   \\ \hline
+ Punto Fisso & 0.5   &  [0,1]  & \(10^{-6}\) & 0.824132596440194 & 17   \\ \hline
+ Newton      & 0.5   &  [0,1]  & \(10^{-6}\) & 0.824132312409912 & 4    \\ \hline
+\end{tabular}
+\end{table}
+
+
+
+\begin{table}[h!]
+\centering
+\begin{tabular}{|c|c|c|c|c|c|}
+\hline
+\textbf{Metodo} & \textbf{Punto iniziale} & \textbf{Intervallo} & \textbf{Epsilon} & \textbf{Soluzione} & \textbf{Iterazioni}  \\ \hline
+ Bisezione   & 0.8   &  [0,1]  & \(10^{-6}\) & 0.824131965637207 & 20   \\ \hline
+ Punto Fisso & 0.8   &  [0,1]  & \(10^{-6}\) & 0.824132025062060 & 14   \\ \hline
+ Newton      & 0.8   &  [0,1]  & \(10^{-6}\) & 0.824132376563292 & 2   \\ \hline
+\end{tabular}
+\end{table}
+
+
+
+
+
+\begin{table}[h!]
+\centering
+\begin{tabular}{|c|c|c|c|c|c|}
+\hline
+\textbf{Metodo} & \textbf{Punto iniziale} & \textbf{Intervallo} & \textbf{Epsilon} & \textbf{Soluzione} & \textbf{Iterazioni}  \\ \hline
+ Bisezione   & 0.8   &  [0,1]  & \(10^{-5}\) & 0.824134826660156 & 17   \\ \hline
+ Punto Fisso & 0.8   &  [0,1]  & \(10^{-5}\) & 0.824125006492905 & 10   \\ \hline
+ Newton      & 0.8   &  [0,1]  & \(10^{-5}\) & 0.824132376563292 & 2    \\ \hline
+\end{tabular}
+\end{table}
+
+
+
+\begin{table}[h!]
+\centering
+\begin{tabular}{|c|c|c|c|c|c|}
+\hline
+\textbf{Metodo} & \textbf{Punto iniziale} & \textbf{Intervallo} & \textbf{Epsilon} & \textbf{Soluzione} & \textbf{Iterazioni}  \\ \hline
+ Bisezione   & 0.8   &  [0,1]  & \(10^{-4}\) & 0.8240966796875   & 13   \\ \hline
+ Punto Fisso & 0.8   &  [0,1]  & \(10^{-4}\) & 0.824215052092387 & 8   \\ \hline
+ Newton      & 0.8   &  [0,1]  & \(10^{-4}\) & 0.824132376563292 & 2    \\ \hline
+\end{tabular}
+\end{table}
+
+
+
+
+\begin{table}[h!]
+\centering
+\begin{tabular}{|c|c|c|c|c|c|}
+\hline
+\textbf{Metodo} & \textbf{Punto iniziale} & \textbf{Intervallo} & \textbf{Epsilon} & \textbf{Soluzione} & \textbf{Iterazioni}  \\ \hline
+ Bisezione   & 0.8   &  [0,1]  & \(10^{-3}\) & 0.82421875 & 8   \\ \hline
+ Punto Fisso & 0.8   &  [0,1]  & \(10^{-3}\) & 0.824549519096654 & 5   \\ \hline
+ Newton      & 0.8   &  [0,1]  & \(10^{-3}\) & 0.824470434030340 & 1    \\ \hline
+\end{tabular}
+\end{table}
+
+
+
+
+\subsection*{Metodo di Newton}
+
+\begin{minted}[fontsize=\small, linenos, frame=single]{python}
+   def metodo_newton(f, df, x0, max_iter, epsilon1, epsilon2):
+    i = 0
+    cond = True
+    xk = x0
+    if abs(df(xk)) < 1e-10:
+        return None, 0
+    while cond and i < max_iter:
+        xk1 = xk - f(xk) / df(xk)
+        if abs(xk1 - xk) < epsilon1 or abs(f(xk1)) < epsilon2:
+            cond = False
+        if cond:
+            xk = xk1
+            i = i + 1
+    return xk, i
+\end{minted}
+
+
+
+
+
+
+\end{document}

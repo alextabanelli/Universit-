@@ -1,0 +1,15 @@
+\begin{MintedVerbatim}[commandchars=\\\{\}]
+   \PYG{k}{def}\PYG{+w}{ }\PYG{n+nf}{metodo\PYGZus{}newton}\PYG{p}{(}\PYG{n}{f}\PYG{p}{,} \PYG{n}{df}\PYG{p}{,} \PYG{n}{x0}\PYG{p}{,} \PYG{n}{max\PYGZus{}iter}\PYG{p}{,} \PYG{n}{epsilon1}\PYG{p}{,} \PYG{n}{epsilon2}\PYG{p}{):}
+    \PYG{n}{i} \PYG{o}{=} \PYG{l+m+mi}{0}
+    \PYG{n}{cond} \PYG{o}{=} \PYG{k+kc}{True}
+    \PYG{n}{xk} \PYG{o}{=} \PYG{n}{x0}
+    \PYG{k}{if} \PYG{n+nb}{abs}\PYG{p}{(}\PYG{n}{df}\PYG{p}{(}\PYG{n}{xk}\PYG{p}{))} \PYG{o}{\PYGZlt{}} \PYG{l+m+mf}{1e\PYGZhy{}10}\PYG{p}{:}
+        \PYG{k}{return} \PYG{k+kc}{None}\PYG{p}{,} \PYG{l+m+mi}{0}
+    \PYG{k}{while} \PYG{n}{cond} \PYG{o+ow}{and} \PYG{n}{i} \PYG{o}{\PYGZlt{}} \PYG{n}{max\PYGZus{}iter}\PYG{p}{:}
+        \PYG{n}{xk1} \PYG{o}{=} \PYG{n}{xk} \PYG{o}{\PYGZhy{}} \PYG{n}{f}\PYG{p}{(}\PYG{n}{xk}\PYG{p}{)} \PYG{o}{/} \PYG{n}{df}\PYG{p}{(}\PYG{n}{xk}\PYG{p}{)}
+        \PYG{k}{if} \PYG{n+nb}{abs}\PYG{p}{(}\PYG{n}{xk1} \PYG{o}{\PYGZhy{}} \PYG{n}{xk}\PYG{p}{)} \PYG{o}{\PYGZlt{}} \PYG{n}{epsilon1} \PYG{o+ow}{or} \PYG{n+nb}{abs}\PYG{p}{(}\PYG{n}{f}\PYG{p}{(}\PYG{n}{xk1}\PYG{p}{))} \PYG{o}{\PYGZlt{}} \PYG{n}{epsilon2}\PYG{p}{:}
+            \PYG{n}{cond} \PYG{o}{=} \PYG{k+kc}{False}
+        \PYG{n}{xk} \PYG{o}{=} \PYG{n}{xk1}
+        \PYG{n}{i} \PYG{o}{=} \PYG{n}{i} \PYG{o}{+} \PYG{l+m+mi}{1}
+    \PYG{k}{return} \PYG{n}{xk}\PYG{p}{,} \PYG{n}{i}
+\end{MintedVerbatim}

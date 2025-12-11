@@ -327,3 +327,158 @@ monitor semtimeout {
 }; 
 
 
+//Esame 05/09/2025
+/*
+Per poter partire un passeggero di uno specifico volo esegue i passi seguenti:
+fila = volo.checkin() // al check-in viene attribuito il posto (il numero della fila va da 1 a 20,
+ // 5 posti per fila), se i posti sono esauriti si attende per fare checkin
+ // sul prossimo volo
+… va al gate
+volo.imbarco(fila) // il passeggero si può imbarcare quando consentito dal personale di terra
+… sali sull’aereo
+volo.a_bordo() // il passeggero è a bordo.
+Mentre il personale di terra quando l’aereo è al gate, volendo imbarcare i passeggeri dal fondo esegue il seguente
+codice:
+for (i = 20; i > 0; i--)
+ volo.chiama(i) //tutti i passeggeri delle file >= i possono imbarcarsi
+ … attendi
+volo.imbarco_completo() // la funzione attende il completamento dell’imbarco: l’aereo puo’
+ partire solo quando tutti i passeggeri passati al checkin sono a bordo
+Scrivere il monitor volo
+*/
+
+#define MAXPASS 100
+
+monitor volo {
+    int countcheckin = 0;
+    int currentfila ;
+    int onboard ;
+    condition ok2imbarco[20];  //fila < currentfila
+    condition ok2leave; //imbarco completo
+}
+
+procedur_entry int checkin(){
+    int fila;
+    if (countcheckin >= MAXPASS){
+        ok2checkin.wait();
+    }
+    countcheckin++;
+    fila = (countcheckin-1)/5 +1; //calcolo della fila
+    if (countcheckin < MAXPASS) {
+        ok2checkin.signal();
+    }
+    return fila;
+}
+
+procedur_entry void imbarco(int fila){
+    /*if (fila < 1 || fila > 20){
+        throw "fila non valida";
+    }*/
+    if (fila < currentfila){
+        ok2imbarco[fila].wait();
+    }
+    ok2imbarco[fila].signal();
+    //posso imbarcarmi
+}
+
+procedur_entry void a_bordo(){
+    onboard++;
+    if (onboard == countcheckin){
+        ok2leave.signal();
+    }
+}
+
+procedur_entry void chiama(int fila){
+    /*if (fila < 1 || fila > 20){
+        throw "fila non valida";
+    }*/
+    currentfila = fila;
+    ok2imbarco[fila].signal();
+}
+
+procedur_entry void imbarco_completo(){
+    if (onboard < countcheckin){
+        ok2leave.wait();
+    }
+    onboard = 0;
+    countcheckin = 0;
+    ok2checkin.signal(); //sblocco il checkin per il prossimo volo
+}
+
+
+
+/*
+ Un servizio di message passing asincrono limitato consente di spedire messaggi che contengono un
+indentificativo di processo, una flag booleana e un corpo del messaggio di lunghezza <= 1500 byte.
+lsend(<pid, flag, body>, dest) // spedisce un messaggio a dest; len(body) <= 1500
+<pid, flag, body> = lrecv(sender) // riceve (FIFO) un messaggio da sender (può essere ANY).
+Scrivere un servizio di message passing asincrono standard facendo uso di lsend, lrecv.
+*/
+
+void ssend(msg_t msg, pid_t dest){
+    bool flag;
+    for chunk in msg.split(1500){ //suddivido il messaggio in chunk di 1500 byte
+        flag = chunk.length() < 1500; //se è l'ultimo chunk imposto la flag a true
+        lsend(<getpid(), flag, chunk>, dest);
+    }
+    msg_t arecv(pid_t sender){
+        msg_t msg;
+        while (true){
+            msg = db.get(sender); //prendo tutti i messaggi arrivati da sender
+            if (msg != NULL) return msg;
+            <snd, flag, chunk> = lrecv(ANY);
+            db.add(<snd, flag, chunk>);
+        }
+}
+
+
+//Esame 23/06/2025
+/*
+Un servizio chiamato threshlocking ha le due seguenti funzioni di interfaccia:
+void threshlock(int level)
+void chthreshold(int newlevel)
+Il servizio mantiene il valore di soglia corrente: un numero intero, con valore iniziale zero.
+Se un processo chiama threshlock con parametro level maggiore o uguale alla soglia corrente viene bloccato,
+altrimenti no.
+La funzione chthreshold cambia il valore di soglia portandolo a newlevel. Tutti i processi in attesa che avevano
+specificato un parametro level minore di newlevel devono essere sbloccati.
+Implementare il servizio utilizzando semafori.
+*/
+
+semaphore mutex(1);
+semaphore tlock[](0);
+int thr = 0;
+int nlock[]; //array dinamico per tenere traccia del numero di processi bloccati per ogni livello
+
+void threshlock(int level){
+    mutex.P();
+    if (level >= thr){
+        nlock[level]++;
+        mutex.V();
+        tlock[level].P();
+        if (nlock[level] > 0){
+            tlock[level].V();
+        }
+        else {
+            mutex.V();
+        }
+    }
+    else {
+        mutex.V();
+    }
+    
+}
+
+
+void chthreshold(int newlevel){
+    mutex.P();
+    thr = newlevel;
+    for (int level = thr; level < newlevel; level++){
+        while (nlock[level] > 0){
+            nlock[level]--;
+            tlock[level].V();
+        }
+    }
+    thr = newlevel;
+    mutex.V();
+}

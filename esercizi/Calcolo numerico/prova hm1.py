@@ -12,19 +12,42 @@ alfa = -8
 beta = 8
 
 
-x = np.linspace(alfa, beta, 1000)
-plt.figure(figsize=(8, 8))
-plt.subplot(2, 1, 1)
+
+
+
+
+
+# Parametri comuni
+max_iter = 100
+# Epsilon
+epsilon = 1e-3
+epsilon1 = 1e-3
+epsilon2 = 1e-3
+# Punto iniziale
+x0 = 0.8
+# Intervallo
+a = 0
+b = 1
+
+x = np.linspace(alfa, beta, 100)
+plt.figure(figsize=(8, 4))
+plt.subplot(1, 2, 1)
 plt.title ("Funzione f(x) = x^2 - cos(x)")
 plt.plot (x, f(x), 'g', label='y = f(x)')
+
+
+y = np.zeros_like(x)
+plt.plot(x, y, 'yellow', label='y = 0')
+
+
 d = 6
 plt.xlim(-d, d)  # mostra solo l'intervallo [-10, 10] sull'asse x
 plt.ylim(-d, d)   # mostra solo l'intervallo [-10, 10] sull'asse y
 plt.legend()
 plt.grid()
 
-plt.subplot(2, 1, 2)
-x = np.linspace(alfa, beta, 1000)
+plt.subplot(1, 2, 2)
+x = np.linspace(alfa, beta, 100)
 plt.title ("Funzione g(x) = sqrt(cos(x))")
 plt.plot (x, g(x), 'orange', label='y = g(x)')
 d = 10
@@ -37,28 +60,15 @@ plt.show()
 
 
 
-# Parametri comuni
-max_iter = 100
-# Epsilon
-epsilon = 1e-6
-epsilon1 = 1e-6
-epsilon2 = 1e-6
-# Punto iniziale
-x0 = 0
-# Intervallo
-a = 0
-b = 1
-
-
-
 def metodo_bisezione(f, a, b, max_iter, epsilon):
     # Stampa metodo di bisezione
     x = np.linspace(a, b)
-    plt.figure(figsize=(12, 8))
+    plt.figure(figsize=(12, 4))
+    plt.subplot(1, 3, 1)
     plt.title ("Metodo di Bisezione")
-    plt.plot (x, f(x), 'r')
+    plt.plot (x, f(x), 'b')
     y = np.zeros_like(x)
-    plt.plot(x, y, 'b', label='y = 0')
+    plt.plot(x, y, 'yellow', label='y = 0')
     plt.xlim(a, b)  # mostra solo l'intervallo [-6, 1] sull'asse x
     if f(a) < f(b):
         plt.ylim(f(a), f(b))   # mostra solo l'intervallo [f(-6), f(1)] sull'asse y
@@ -77,13 +87,13 @@ def metodo_bisezione(f, a, b, max_iter, epsilon):
     while cond and i < max_iter:
         c = (a + b) / 2
         # Stampo il punto c nel grafico
-        plt.plot(c, f(c), 'or')
+        plt.plot(c, f(c), 'og')
         if abs(f(c)) < epsilon:
-            print(f"Convergenza raggiunta dopo {i} iterazioni.")
+            print(f"Convergenza raggiunta dopo {i+1} iterazioni.")
             print(f"Lo zero calcolato è {c}")
             cn = False
             cond = False
-            plt.plot(c, f(c), 'og', label='Convergenza')
+            plt.plot(c, f(c), 'or', label='Convergenza')
 
         if cond and f(a) * f(c) < 0:
             b = c
@@ -99,21 +109,15 @@ def metodo_bisezione(f, a, b, max_iter, epsilon):
         print(f"Lo zero calcolato è {c}")
     
     plt.grid()
-    plt.show()
-
-    plt.figure(figsize=(8, 8))
-    plt.title ("Andamento f(x) con metodo delle Iterazioni di Bisezione")
-    fk = fk[:i] # Truncate fk to the number of iterations performed
-    plt.plot(range(i), fk, 'm', label='Valori f(c) ad ogni iterazione')
     plt.legend()
-    plt.show()
-    return c, i
+    
+    return c, i, fk[:i+1]
 
 def metodo_punto_fisso(g, x0, max_iter, epsilon1, epsilon2, alfa, beta):
 
     # Stampa metodo punto fisso
     x = np.linspace(alfa, beta, 400)
-    plt.figure(figsize=(8, 8))
+    plt.subplot(1, 3, 2)
     plt.title ("Metodo delle Iterazioni di Punto Fisso")
     y = np.zeros_like(x)
     plt.plot(x, y, 'yellow', label='y = 0')
@@ -127,7 +131,7 @@ def metodo_punto_fisso(g, x0, max_iter, epsilon1, epsilon2, alfa, beta):
     cond = True
     xk = x0
     fk = np.zeros(max_iter)
-
+    fk[0] = abs(f(x0))
     while cond and i < max_iter:
         x = g(xk)
         plt.plot ([xk, xk], [xk, g(xk)], 'r-')
@@ -135,7 +139,7 @@ def metodo_punto_fisso(g, x0, max_iter, epsilon1, epsilon2, alfa, beta):
 
 
         if abs(f(x)) < epsilon2:
-            print(f"Convergenza raggiunta dopo {i} iterazioni")
+            print(f"Convergenza raggiunta dopo {i+1} iterazioni")
             print(f"Lo zero calcolato è {x}")
             # linea verticale al punto di convergenza
             plt.axvline(x=x, color='red', linestyle='--')
@@ -150,7 +154,7 @@ def metodo_punto_fisso(g, x0, max_iter, epsilon1, epsilon2, alfa, beta):
             plt.plot(x, f(x), 'ro', label='Convergenza')      
             cond = False
         if cond:
-            fk[i] = abs(f(x))
+            fk[i+1] = abs(f(x))
         xk = x
         i = i + 1
 
@@ -163,59 +167,55 @@ def metodo_punto_fisso(g, x0, max_iter, epsilon1, epsilon2, alfa, beta):
     plt.ylim(-d, d)   # mostra solo l'intervallo [-10, 10] sull'asse y
     plt.grid()
     plt.legend()
-    plt.show()
-
-    plt.figure(figsize=(8, 8))
-    plt.title ("Andamento f(x) con metodo delle Iterazioni di Punto Fisso")
-    fk = fk[:i] # Truncate fk to the number of iterations performed
-    plt.plot(range(i), fk, 'm', label='Valori f(c) ad ogni iterazione')
-    plt.legend()
-    plt.show()
 
 
-    return xk, i
+
+
+    return xk, i, fk[:i+1]
 
 
 def metodo_newton(f, df, x0, max_iter, epsilon1, epsilon2, alfa, beta):
 
     # Stampa metodo di Newton
     x = np.linspace(alfa, beta, 400)
-    plt.figure(figsize=(8, 8))
+    plt.subplot(1, 3, 3)
     plt.title ("Metodo di Newton")
     plt.plot(x0, 0, 'ro', color='pink', label='Punto iniziale')
     y = np.zeros_like(x)
-    plt.plot(x, y, 'b', label='y = 0')
+    plt.plot(x, y, 'yellow', label='y = 0')
     #plt.plot (x, x, 'g', label='y = x')
-    plt.plot (x, f(x), 'r', label='y = f(x)')
+    plt.plot (x, f(x), 'blue', label='y = f(x)')
     # Metodo di Newton
     print("\nMetodo di Newton:")
     i = 0
     cond = True
     xk = x0
     f_xk = np.zeros(max_iter)
-
+    f_xk[0] = abs(f(xk))
     if abs(df(xk)) < 1e-10:
         print("La derivata è zero. Il metodo di Newton non può essere applicato.")
-        return None, 0
+        plt.legend()
+        plt.grid()
+        plt.show()
+        return None, 0, []
     while cond and i < max_iter:
         df_xk = df(xk)
-        f_xk[i] = abs(f(xk))
         # Segnalo il punto tangente nel grafico
-        plt.plot(xk, f_xk[i], 'yo', label='Punto di tangenza' if i == 0 else "")
+        plt.plot(xk, f(xk), 'yo') 
         # Tangent line at (xk, f(xk))
-        tangente = df_xk * (x - xk) + f_xk[i]
+        tangente = df_xk * (x - xk) + f(xk)
         # linea tangente tratteggiata
-        plt.plot(x, tangente, 'b', linestyle='--', label='Tangente' if i == 0 else "")
+        plt.plot(x, tangente, 'b', linestyle='--')
         xk1 = xk - f(xk) / df(xk)
-        plt.plot ([xk1, xk1], [0, f(xk1)], 'g',  label='Individo il punto successivo' if i == 0 else "")
+        f_xk[i+1] = abs(f(xk1))
         if abs(xk1 - xk) < epsilon1:
-            print(f"Convergenza raggiunta dopo {i} iterazioni.")
+            print(f"Convergenza raggiunta dopo {i+1} iterazioni.")
             print(f"Lo zero calcolato è {xk1}")
             plt.plot(xk1, f(xk1), 'ro', label='Convergenza')
             cond = False
 
         if abs(f(xk1)) < epsilon2:
-            print(f"Convergenza raggiunta dopo {i} iterazioni")
+            print(f"Convergenza raggiunta dopo {i+1} iterazioni")
             print(f"Lo zero calcolato è {xk1}")
             plt.plot(xk1, f(xk1), 'ro', label='Convergenza')
             cond = False
@@ -226,29 +226,49 @@ def metodo_newton(f, df, x0, max_iter, epsilon1, epsilon2, alfa, beta):
     d = 2
     plt.xlim(-d, d)  # mostra solo l'intervallo [-10, 10] sull'asse x
     plt.ylim(-d, d)   # mostra solo l'intervallo [-10, 10] sull'asse y
-    #Legenda
-    #plt.gca().set_aspect(0.5)  # scala logaritmica per l’asse Y
-    #plt.autoscale(enable=True, axis='y', tight=True)
-    plt.legend()
     plt.grid()
     plt.show()
 
-    plt.figure(figsize=(8, 8))
-    plt.title ("Andamento f(x) con metodo delle Iterazioni di Newton")
-    fxk = f_xk[:i] # Truncate fk to the number of iterations performed
-    plt.plot(range(i), fxk, 'm', label='Valori f(c) ad ogni iterazione')
-    plt.legend()
-    plt.show()
-    return xk, i
+    
+    return xk, i, f_xk[:i+1]
 
 
 def homework1(f, df, x0, max_iter, epsilon, alfa, beta, epsilon1, epsilon2, a, b):
-    sol1, n_iter1 = metodo_bisezione(f, a, b, max_iter, epsilon)
-    sol2, n_iter2 = metodo_punto_fisso(g, x0, max_iter, epsilon1, epsilon2, alfa, beta)
-    sol3, n_iter3 = metodo_newton(f, df, x0, max_iter, epsilon1, epsilon2, alfa, beta)
-    return sol1, sol2, sol3, n_iter1, n_iter2, n_iter3
+    sol1, n_iter1, fk1 = metodo_bisezione(f, a, b, max_iter, epsilon)
+    sol2, n_iter2, fk2 = metodo_punto_fisso(g, x0, max_iter, epsilon1, epsilon2, alfa, beta)
+    sol3, n_iter3, fk3 = metodo_newton(f, df, x0, max_iter, epsilon1, epsilon2, alfa, beta)
+    return sol1, sol2, sol3, n_iter1, n_iter2, n_iter3, fk1, fk2, fk3
 
-sol1, sol2, sol3, n_iter1, n_iter2, n_iter3 = homework1(f, df, x0, max_iter, epsilon, alfa, beta, epsilon1, epsilon2, a, b)
+sol1, sol2, sol3, n_iter1, n_iter2, n_iter3, fk1, fk2, fk3 = homework1(f, df, x0, max_iter, epsilon, alfa, beta, epsilon1, epsilon2, a, b)
+
+plt.figure(figsize=(12, 4))
+plt.subplot(1, 3, 1)
+plt.title ("Bisezione")
+fk = fk1[:n_iter1+1] # Truncate fk to the number of iterations performed
+plt.plot(range(n_iter1+1), fk, 'm', label='Valori f(c) ad ogni iterazione')
+plt.legend()
+plt.grid()
+
+
+
+plt.subplot(1, 3, 2)
+plt.title ("Punto Fisso")
+fk = fk2[:n_iter2+1] # Truncate fk to the number of iterations performed
+plt.plot(range(n_iter2+1), fk, 'm', label='Valori f(c) ad ogni iterazione')
+plt.legend()
+plt.grid()
+
+if (n_iter3 > 0): n_iter3 += 1
+plt.subplot(1, 3, 3)
+plt.title ("Newton")
+fk = fk3[:n_iter3] # Truncate fk to the number of iterations performed
+plt.plot(range(n_iter3), fk, 'm', label='Valori f(c) ad ogni iterazione')
+plt.legend()
+plt.grid()
+plt.tight_layout()
+plt.show()
+n_iter3 -= 1
+
 
 # Dati di esempio (i tuoi risultati)
 risultati = np.array([
