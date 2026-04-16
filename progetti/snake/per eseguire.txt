@@ -1,1 +1,0 @@
-g++ -I/mingw64/include/ncurses -o snake *.cpp -lncurses -L/mingw64/bin -static

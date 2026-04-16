@@ -62,7 +62,7 @@ plt.show()
 
 def metodo_bisezione(f, a, b, max_iter, epsilon):
     # Stampa metodo di bisezione
-    x = np.linspace(a, b)
+    x = np.linspace(a, b, 400)
     plt.figure(figsize=(12, 4))
     plt.subplot(1, 3, 1)
     plt.title ("Metodo di Bisezione")
@@ -237,66 +237,67 @@ def homework1(f, df, x0, max_iter, epsilon, alfa, beta, epsilon1, epsilon2, a, b
     sol1, n_iter1, fk1 = metodo_bisezione(f, a, b, max_iter, epsilon)
     sol2, n_iter2, fk2 = metodo_punto_fisso(g, x0, max_iter, epsilon1, epsilon2, alfa, beta)
     sol3, n_iter3, fk3 = metodo_newton(f, df, x0, max_iter, epsilon1, epsilon2, alfa, beta)
-    return sol1, sol2, sol3, n_iter1, n_iter2, n_iter3, fk1, fk2, fk3
 
-sol1, sol2, sol3, n_iter1, n_iter2, n_iter3, fk1, fk2, fk3 = homework1(f, df, x0, max_iter, epsilon, alfa, beta, epsilon1, epsilon2, a, b)
-
-plt.figure(figsize=(12, 4))
-plt.subplot(1, 3, 1)
-plt.title ("Bisezione")
-fk = fk1[:n_iter1+1] # Truncate fk to the number of iterations performed
-plt.plot(range(n_iter1+1), fk, 'm', label='Valori f(c) ad ogni iterazione')
-plt.legend()
-plt.grid()
+    plt.figure(figsize=(12, 4))
+    plt.subplot(1, 3, 1)
+    plt.title ("Bisezione")
+    fk = fk1[:n_iter1+1] # Truncate fk to the number of iterations performed
+    plt.plot(range(n_iter1+1), fk, 'm', label='Valori f(c) ad ogni iterazione')
+    plt.legend()
+    plt.grid()
 
 
 
-plt.subplot(1, 3, 2)
-plt.title ("Punto Fisso")
-fk = fk2[:n_iter2+1] # Truncate fk to the number of iterations performed
-plt.plot(range(n_iter2+1), fk, 'm', label='Valori f(c) ad ogni iterazione')
-plt.legend()
-plt.grid()
+    plt.subplot(1, 3, 2)
+    plt.title ("Punto Fisso")
+    fk = fk2[:n_iter2+1] # Truncate fk to the number of iterations performed
+    plt.plot(range(n_iter2+1), fk, 'm', label='Valori f(c) ad ogni iterazione')
+    plt.legend()
+    plt.grid()
 
-if (n_iter3 > 0): n_iter3 += 1
-plt.subplot(1, 3, 3)
-plt.title ("Newton")
-fk = fk3[:n_iter3] # Truncate fk to the number of iterations performed
-plt.plot(range(n_iter3), fk, 'm', label='Valori f(c) ad ogni iterazione')
-plt.legend()
-plt.grid()
-plt.tight_layout()
-plt.show()
-n_iter3 -= 1
+    if (n_iter3 > 0): n_iter3 += 1
+    plt.subplot(1, 3, 3)
+    plt.title ("Newton")
+    fk = fk3[:n_iter3] # Truncate fk to the number of iterations performed
+    plt.plot(range(n_iter3), fk, 'm', label='Valori f(c) ad ogni iterazione')
+    plt.legend()
+    plt.grid()
+    plt.tight_layout()
+    plt.show()
+    n_iter3 -= 1
 
 
-# Dati di esempio (i tuoi risultati)
-risultati = np.array([
-    [sol1, n_iter1,  None],
-    [sol2, n_iter2,  x0],
-    [sol3, n_iter3,  x0]
-])
+    # Dati di esempio (i tuoi risultati)
+    risultati = np.array([
+        [sol1, n_iter1,  None],
+        [sol2, n_iter2,  x0],
+        [sol3, n_iter3,  x0]
+    ])
 
-intestazioni = ["Soluzione", "Iterazioni", "Punto iniziale"]
+    intestazioni = ["Soluzione", "Iterazioni", "Punto iniziale"]
 
-# --- Creazione figura ---
-fig, ax = plt.subplots()
+    # --- Creazione figura ---
+    fig, ax = plt.subplots()
 
-# Nasconde assi
-ax.axis('tight')
-ax.axis('off')
+    # Nasconde assi
+    ax.axis('tight')
+    ax.axis('off')
 
-# Crea la tabella
-tabella = ax.table(
-    cellText=risultati,
-    colLabels=intestazioni,
-    loc='center',
-    cellLoc='center'
-)
+    # Crea la tabella
+    tabella = ax.table(
+        cellText=risultati,
+        colLabels=intestazioni,
+        loc='center',
+        cellLoc='center'
+    )
 
-# Migliora la leggibilità
-tabella.auto_set_font_size(False)
-tabella.set_fontsize(12)
-tabella.scale(1.2, 1.2)
+    # Migliora la leggibilità
+    tabella.auto_set_font_size(False)
+    tabella.set_fontsize(12)
+    tabella.scale(1.2, 1.2)
 
-plt.show()
+    plt.show()
+
+
+homework1(f, df, x0, max_iter, epsilon, alfa, beta, epsilon1, epsilon2, a, b)
+

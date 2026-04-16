@@ -4,8 +4,8 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 # 1️⃣ Definizione della funzione
-f = lambda x, y: (x)**2 + 3*(y)**2
-grad = lambda x, y: np.array([2*x, 6*y])
+f = lambda x, y: (x) + 3*(y)**2
+grad = lambda x, y: np.array([1, 6*y])
 
 # 2️⃣ Creazione griglia di punti
 x = np.linspace(-5, 5, 100)

@@ -45,7 +45,7 @@ def metodo_bisezione(f, a, b, max_iter, epsilon):
         i = i + 1 
     return c, i
 
-def metodo_punto_fisso(g, x0, max_iter, epsilon1, epsilon2):
+def metodo_punto_fisso(f, g, x0, max_iter, epsilon1, epsilon2):
     i = 0
     cond = True
     xk = x0
@@ -75,7 +75,7 @@ def metodo_newton(f, df, x0, max_iter, epsilon1, epsilon2):
 
 def homework1(f, df, x0, max_iter, epsilon, epsilon1, epsilon2, a, b, g):
     sol1, n_iter1 = metodo_bisezione(f, a, b, max_iter, epsilon)
-    sol2, n_iter2 = metodo_punto_fisso(g, x0, max_iter, epsilon1, epsilon2)
+    sol2, n_iter2 = metodo_punto_fisso(f, g, x0, max_iter, epsilon1, epsilon2)
     sol3, n_iter3 = metodo_newton(f, df, x0, max_iter, epsilon1, epsilon2)
     
     return sol1, sol2, sol3, n_iter1, n_iter2, n_iter3

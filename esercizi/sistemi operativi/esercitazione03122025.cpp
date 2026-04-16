@@ -421,7 +421,10 @@ void ssend(msg_t msg, pid_t dest){
         flag = chunk.length() < 1500; //se è l'ultimo chunk imposto la flag a true
         lsend(<getpid(), flag, chunk>, dest);
     }
-    msg_t arecv(pid_t sender){
+    
+}
+
+msg_t arecv(pid_t sender){
         msg_t msg;
         while (true){
             msg = db.get(sender); //prendo tutti i messaggi arrivati da sender
@@ -429,7 +432,7 @@ void ssend(msg_t msg, pid_t dest){
             <snd, flag, chunk> = lrecv(ANY);
             db.add(<snd, flag, chunk>);
         }
-}
+    }
 
 
 //Esame 23/06/2025
@@ -479,6 +482,391 @@ void chthreshold(int newlevel){
             tlock[level].V();
         }
     }
-    thr = newlevel;
     mutex.V();
+}
+
+
+//Esame 20/01/2023
+/*
+ Scrivere il monitor fullbuf che abbia le seguenti procedure entry:
+void add(int value)
+int get(void)
+Le prime MAX chiamate della procedure entry add devono bloccare i processi chiamanti. In seguito deve sempre valere
+Na >= MAX indicando con Na il numero di processi bloccati in attesa di completare la funzione add.
+La funzione get deve attendere che Na > MAX, restituire la somma algebrica dei parametri value delle chiamate add in
+sospeso e riattivare il primo processo in attesa di completare la add (se la get richiede che Na > MAX, la get può
+riattivare un processo e al completamento della get si rimarrà garantito che Na >= MAX)
+
+*/
+
+monitor fullbuf {
+    int na = 0; //numero di processi bloccati in add
+    int sum = 0; //somma dei valori passati a add
+    condition ok2add; //per add, totn >= MAX
+    condition ok2get; //per get, totn > MAX
+}
+
+procedur_entry void add(int value){
+    na++;
+    sum += value;
+    if (na > MAX){
+        ok2get.signal();
+    }
+    ok2add.wait();
+    sum -= value;
+    na--;
+
+}
+
+procedur_entry int get(void){
+    //int rv;
+    if (na <= MAX){
+        ok2get.wait();
+    }
+    //rv = sum; se si vuole restituire la somma, con anche il processo che viene sbloccato
+    ok2add.signal();
+    return sum;
+    //return rv;
+}
+
+
+
+//Esame 10/09/2024
+/*
+ Implementare il monitor firstlast che ha 3 procedure entry:
+void addfirst(int val);
+void addlast(int val);
+int getboth(void);
+Quando un processo chiama la procedure entry getboth deve attendere che ci sia almeno un processo che ha
+chiamato la addfirst e uno che ha chiamato la addlast. La funzione getboth deve sbloccare il primo processo fra
+quelli in attesa per aver chiamato addfirst e l'ultimo fra quelli in attesa per aver chiamato addlast. Il valore di ritorno
+della getboth è la somma dei parametri passati alla addfirst e addlast dai processi sbloccati.
+I processi che chiamano la addfirst o la addlast devono attendere di essere riattivati da una chiamata getboth.
+*/
+
+monitor firstlast {
+    queue of condition qf; //Queue FIFO
+    stack of condition sl; // Stack LIFO
+    condition ok2get; //wf == 0 || wl == 0
+    int wg, sum; //numero di getboth in attesa
+}
+
+procedur_entry void addfirst(int val){
+    condition c;
+    qf.enqueue(c);
+    if (wg > 0 && sl.len() > 0){
+        ok2get.signal();
+    }
+    else {
+        c.wait();
+        sum += val;
+    }
+}
+
+
+procedur_entry void addlast(int val){
+    condition c;
+    sl.push(c);
+    if (wg > 0 && qf.len() > 0){
+        ok2get.signal();
+    }
+    else {
+        c.wait();
+        sum += val;
+    }
+}
+procedur_entry int getboth(void){
+    sum = 0;
+    if (qf.len() == 0 || sl.len() == 0){
+        wg++;
+        ok2get.wait();
+        wg--;
+    }
+    signal(qf.dequeue());
+    signal(sl.pop());
+    return sum;
+}
+
+
+
+/*
+Dato un servizio di message passing asincrono scrivere un servizio di message passing asincrono
+alternato (senza fare uso di processi server).
+void altsend(msg_t msg, pid_t destination)
+msg_t altrecv(pid_t sender)
+La prima chiamata di altrecv deve restituire il primo messaggio fra quelli in attesa (spediti dal mittente sender o da
+qualsiasi processo se sender==ANY). La seconda chiamata di altrecv deve restituire l'ultimo fra i messaggi in attesa, la
+terza chiamata deve restituire il primo, la quarta chiamata l'ultimo e così via.
+*/
+
+
+void altsend(msg_t msg, pid_t destination){
+    asend(<getpid(), msg>, destination);
+}
+
+msg_t altrecv(pid_t sender){
+    static last = 0; //variabile statica per alternare tra primo e ultimo
+    asend(<getpid(), TAG>, getpid()); //mando un messaggio di notifica a me stesso
+    while (true){
+        <snd, msg> = arecv(ANY);
+        if (snd == getpid() && msg == TAG){
+            break;
+        }
+        db.add(<snd, msg>);
+    }
+    while (true){
+        msg = db.get(sender, last); //getalt alterna tra il primo e l'ultimo messaggio di sender
+        if (msg != NULL){ //se ho trovato un messaggio lo ritorno
+            last = 1 - last; //alterno il valore di last
+            return msg;
+        }
+        <snd, msg> = arecv(ANY);
+        db.add(<snd, msg>);
+    }
+}
+
+
+//Esame 29/05/2024
+
+/*
+Scrivere il monitor urgentsem che implementi un servizio di semafori con supporto di P urgente.
+il monitor ha tre procedure entry e un costruttore:
+void init(int initvalue)
+void P(void)
+void UP(void)
+void V(void)
+Vale l'invariante initvalue + NV >= NP + NUP (dove NX indica il numero di processi che hanno completato l'operazione X).
+UP è una variante della P di tipo urgente. Quando rispettando l'invariante sia possibile scegliere fra un processo in attesa
+per una chiamata P e uno in attesa per UP questo ultimo deve essere riattivato. Fra processi in attesa per P così come fra
+processi in attesa per UP la riattivazione deve avvenire in ordine FIFO.
+*/
+
+monitor urgentsem {
+    int value; //valore del semaforo
+    condition cp; //per P
+    condition cup; //per UP
+}
+
+ void init(int initvalue){
+    value = initvalue;
+}
+
+procedur_entry void P(void){
+    if (value == 0){
+        cp.wait();
+    }
+        value--;
+}
+
+procedur_entry void UP(void){
+    if (value == 0){
+        cup.wait();
+    }
+        value--;
+}
+
+procedur_entry void V(void){
+    value++;
+    cup.signal();
+    if (value > 0){
+        cp.signal();
+    }
+}
+
+
+
+/*
+ Facendo uso di semafori scrivere una funzione syncvalue:
+int syncvalue(int key)
+la funzione syncvalue è sempre bloccante. Quando il valore del parametro key è diverso da quello della precedente
+chiamata il processo prima di bloccarsi riattiva tutti i processi in attesa. Il valore di ritorno è il numero di processi con lo
+stesso valore key sbloccati. Per esempio:
+P chiama syncvalue(42), si blocca.
+Q chiama syncvalue(42), si blocca.
+R chiama syncvalue(44) sblocca P e Q poi si blocca. Il valore di ritorno per P e Q è 2.
+T chiama syncvalue(46), sblocca R che ritorna 1 e si blocca.
+Q chiama syncvalue(46), si blocca.
+P chiama syncvalue(46), si blocca
+V chiama syncvalue(0), sblocca T, Q e P (valore di ritorno: 3) poi si blocca...
+*/
+
+
+semaphore mutex;
+semaphore keywait; //dizionario di array dinamici di condizioni
+semaphore cont;
+int oldkey;
+int nw = 0; //numero di processi in attesa
+int nproc = 0; //numero di processi totali
+
+
+int syncvalue(int key){
+    int rv;
+    mutex.P();
+    if (key != oldkey){
+        if (nw > 0){
+            nproc = nw;
+            keywait.V();
+            cont.P();
+        }
+    }
+    oldkey = key;
+    nw++;
+    mutex.V();
+    keywait.P();
+    nw--;
+    rv = nproc;
+    if (nw == 0){
+        cont.V();
+    }
+    else {
+        keywait.V();
+    }
+    return rv;
+}
+
+
+//Esame 13/02/2024
+
+/*
+Scrivere il monitor rgbsum che fornisce una procedure entry:
+#define red 0
+#define green 1
+#define blue 2
+double rgb(int color, double value)
+I processi che usano il monitor rgbsum devono sommare i valori delle sequenze di chiamate dello stesso colore (red,
+green o blue). La funzione rgb è sempre bloccante. Solo quando una sequenza di chiamate dello stesso colore viene
+interrotta da una chiamata di colore diverso tutti i processi in attesa vengono sbloccati e rgb restituisce la somma dei
+parametri 'value'.
+Esempio: Il processo P chiama rgb(red, 2) -> si blocca. il processo Q chiama rgb(red, 4) ->si blocca. Il processo R chiama
+rgb(blue, 1) sblocca i due processi P e Q che hanno chiamato rgb con parametro red, ad entrambi rgb ritorna il valore 6
+(2 + 4). poi R si blocca. se ora un altro processo T chiama rgb(green, 39) il processo R continua e rgb ritorna 1 mentre R si
+ferma. Ora i processi W,X,Y chiamano tutti rgb(green, 1) bloccandosi. Il processo Z chiamando rgb(red, 0) sblocca R,W,X,Y,
+rgb restituisce a questi processi il valore 42 e Z si ferma
+*/
+
+
+monitor rgbsum {
+    #define red 0
+    #define green 1
+    #define blue 2
+    int currentcolor; //colore corrente
+    condition ok2go; //color != currentcolor
+    int sum; //somma dei valori
+}
+
+procedur_entry double rgb(int color, double value){
+    if (color != currentcolor){
+        ok2go.signal();
+        sum = 0;
+    }
+    currentcolor = color;
+    sum += value;
+    ok2go.wait();
+    ok2go.signal();
+    return sum;
+}
+
+
+/*
+ Sia dato un sistema di message passing asincrono con duplicazione dei messaggi.
+dsnd(msg_t msg, pid_t dest)
+msg_t drecv(pid_t sender)
+I messaggi spediti con dsend verranno sicuramente ricevuti almeno una volta ma possono essere ricevuti più volte. È
+garantita la consegna FIFO.
+Implementare un sistema di message passing asincrono (classico). (non fare uso di processi server)
+*/
+
+
+last[]; //array dinamico per tenere traccia dell'ultimo contatore per ogni mittente, se si accede a last[snd] non inizializzato si assume che valga 0
+cnt = 0; //contatore globale dei messaggi inviati
+
+asnd(msg_t msg, pid_t dest){
+    cnt++;
+    dsnd(<getpid(),cnt, msg>, dest);
+}
+
+msg_t arecv(pid_t sender){
+    while (true){
+        <snd, cnt, msg> = drecv(sender);
+        if (last[snd] < cnt){
+            last[snd] = cnt;
+            break;
+        }
+    return msg;  
+    }
+}
+
+
+
+//Esame 17/01/2024
+
+
+/*
+Scrivere il monitor ds (dispatchstring) che consenta di trasferire stringhe di caratteri fra processi. Il monitor
+ha quattro procedure entry:
+void startsend(void)
+void sendchar(char c)
+void startrecv(void)
+char recvchar(void)
+Quando un processo vuole spedire una stringa chiama la funzione startsend poi tramite sendchar spedisce uno ad
+uno i caratteri della stringa e infine il carattere 0 per indicare la fine della stringa. Similmente quando un processo vuole
+ricevere una stringa chiama la funzione startrecv, riceve uno ad uno i caratteri usando la recvchar. La ricezione del
+carattere 0 indica la fine della stringa.
+Il monitor trasferisce una stringa alla volta e deve usare un buffer di un solo carattere (non può memorizzare vettori o
+stringhe di caratteri).
+*/
+
+
+
+monitor ds {
+    char buf;
+    condition ok2send; //per sendchar
+    condition ok2recv; //per recvchar
+    condition ok2add; //buffer pieno
+    condition ok2get; //buffer vuoto
+    bool full = false; //indica se il buffer ha un dato
+    bool senderbusy; //indica se c'è un sender attivo
+    bool receiverbusy; //indica se c'è un receiver attivo
+}
+
+procedur_entry void startsend(void){
+    if (senderbusy){
+        ok2send.wait();
+    }
+    senderbusy = true;
+}
+
+procedur_entry void sendchar(char c){
+    if (full){
+        ok2add.wait();
+    }
+    buf = c;
+    full = true;
+    ok2get.signal();
+    if (c == 0){
+        senderbusy = false;
+        ok2send.signal();
+    }  
+}
+
+procedur_entry void startrecv(void){
+    if (receiverbusy){
+        ok2recv.wait();
+    }
+    receiverbusy = true;
+}
+
+procedur_entry char recvchar(void){
+    char rv;
+    if (!full){
+        ok2get.wait();
+    }
+    rv = buf;
+    full = false;
+    ok2add.signal();
+    if (rv == 0){
+        receiverbusy = false;
+        ok2recv.signal();
+    }
+    return rv;
 }

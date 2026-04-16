@@ -16,6 +16,14 @@
             "type": "debugpy",
             "request": "launch",
             "program": "${file}"
+        },
+        {
+            "name": "Jupyter: Current Notebook",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${file}",
+            "console": "integratedTerminal",
+            "justMyCode": true
         }
     ]
 }
